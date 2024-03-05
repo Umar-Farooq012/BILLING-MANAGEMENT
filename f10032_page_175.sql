@@ -28,7 +28,7 @@ prompt APPLICATION 10032 - FAISAL MOVERS HOUSING
 -- Application Export:
 --   Application:     10032
 --   Name:            FAISAL MOVERS HOUSING
---   Date and Time:   10:52 Wednesday February 21, 2024
+--   Date and Time:   11:10 Tuesday March 5, 2024
 --   Exported By:     UMAR
 --   Flashback:       0
 --   Export Type:     Page Export
@@ -507,31 +507,26 @@ wwv_flow_api.create_page(
 '',
 '',
 '    }*/ //HIDING TILL HERE',
+'// });',
+'',
+'// var selectedValue = $v(''P175_BILL_SETUP_ID''); // Replace ''P1_PARENT_LOV_ITEM'' with the actual item name.',
+'',
+'// // Set the value in the Interactive Grid column',
+'// apex.region(''GRID'').widget().interactiveGrid(''getActions'').invoke(''PLOT_ID'', {',
+'//   columnName: ''PLOT_ID'', // Replace ''PLOT_ID'' with the actual column name in your Interactive Grid',
+'//   value: selectedValue',
 '// });'))
 ,p_page_template_options=>'#DEFAULT#'
 ,p_protection_level=>'C'
-,p_last_updated_by=>'RIKZA'
-,p_last_upd_yyyymmddhh24miss=>'20240221104740'
-);
-wwv_flow_api.create_page_plug(
- p_id=>wwv_flow_api.id(174472817821060601)
-,p_plug_name=>'BILLS'
-,p_region_template_options=>'#DEFAULT#:t-Region--hideHeader:t-Region--scrollBody'
-,p_region_attributes=>'style="font-color:red;background-color:#F0E68C;";'
-,p_plug_template=>wwv_flow_api.id(158483500507283087)
-,p_plug_display_sequence=>10
-,p_plug_display_point=>'BODY'
-,p_plug_query_options=>'DERIVED_REPORT_COLUMNS'
-,p_attribute_01=>'N'
-,p_attribute_02=>'HTML'
+,p_last_updated_by=>'UMAR'
+,p_last_upd_yyyymmddhh24miss=>'20240305105836'
 );
 wwv_flow_api.create_page_plug(
  p_id=>wwv_flow_api.id(174382427556141889)
-,p_plug_name=>'DGMS Bills Registration Form'
+,p_plug_name=>'Bills Creation'
 ,p_region_name=>'EW_BILL'
-,p_parent_plug_id=>wwv_flow_api.id(174472817821060601)
-,p_region_template_options=>'#DEFAULT#:t-Region--accent1:t-Region--scrollBody'
-,p_region_attributes=>'style="background-color:#CCCFD1;"'
+,p_region_template_options=>'#DEFAULT#:t-Region--accent8:t-Region--scrollBody'
+,p_region_attributes=>'style="background-color:#ffe4c4;";'
 ,p_plug_template=>wwv_flow_api.id(158483500507283087)
 ,p_plug_display_sequence=>10
 ,p_plug_display_point=>'BODY'
@@ -545,9 +540,9 @@ wwv_flow_api.create_page_plug(
 ,p_region_name=>'DET_FORM'
 ,p_parent_plug_id=>wwv_flow_api.id(174382427556141889)
 ,p_region_template_options=>'#DEFAULT#:t-Region--removeHeader js-removeLandmark:t-Region--accent1:t-Region--noBorder:t-Region--scrollBody'
-,p_region_attributes=>'style="background-color:#CCCFD1;"'
+,p_region_attributes=>'style="background-color:#ffe4c4;";'
 ,p_plug_template=>wwv_flow_api.id(158483500507283087)
-,p_plug_display_sequence=>20
+,p_plug_display_sequence=>30
 ,p_plug_display_point=>'BODY'
 ,p_plug_query_options=>'DERIVED_REPORT_COLUMNS'
 ,p_attribute_01=>'N'
@@ -558,13 +553,451 @@ wwv_flow_api.create_page_plug(
 ,p_plug_name=>'PAYABLES'
 ,p_parent_plug_id=>wwv_flow_api.id(174382427556141889)
 ,p_region_template_options=>'#DEFAULT#:t-Region--hideHeader:t-Region--textContent:t-Region--scrollBody:t-Form--slimPadding'
-,p_region_attributes=>'style="font-weight:bold;background-color:#D5DCDC;"'
+,p_region_attributes=>'style="background-color:#ffe4c4;";'
 ,p_plug_template=>wwv_flow_api.id(158483500507283087)
-,p_plug_display_sequence=>20
+,p_plug_display_sequence=>40
 ,p_plug_display_point=>'BODY'
 ,p_plug_query_options=>'DERIVED_REPORT_COLUMNS'
 ,p_attribute_01=>'N'
 ,p_attribute_02=>'HTML'
+);
+wwv_flow_api.create_page_plug(
+ p_id=>wwv_flow_api.id(239587083110541426)
+,p_plug_name=>'Meter Wise Details'
+,p_region_name=>'LINEID'
+,p_parent_plug_id=>wwv_flow_api.id(174382427556141889)
+,p_region_template_options=>'#DEFAULT#:t-Region--noPadding:t-Region--scrollBody'
+,p_component_template_options=>'#DEFAULT#'
+,p_plug_template=>wwv_flow_api.id(158483500507283087)
+,p_plug_display_sequence=>10
+,p_plug_display_point=>'BODY'
+,p_query_type=>'SQL'
+,p_plug_source=>wwv_flow_string.join(wwv_flow_t_varchar2(
+'select DBS.ID,',
+'       DBS.CUSTOMER_NAME,',
+'       DBS.PLOT_ID,',
+'       DBS.PREV_READING,',
+'       DBS.METER_REF_NO,',
+'       DBS.BILL_ID,',
+'       DBS.CURRENT_READING,',
+'       DBS.BILL_PAYMENT,',
+'       DBS.UNIT_CONSUMED',
+'  from DGMS_BILLS_SETUP DBS',
+'WHERE DBS.BILL_ID=:P175_ID',
+'',
+'  ',
+'',
+'',
+''))
+,p_plug_source_type=>'NATIVE_IG'
+,p_ajax_items_to_submit=>'P175_ID'
+,p_plug_query_options=>'DERIVED_REPORT_COLUMNS'
+,p_prn_content_disposition=>'ATTACHMENT'
+,p_prn_document_header=>'APEX'
+,p_prn_units=>'INCHES'
+,p_prn_paper_size=>'LETTER'
+,p_prn_width=>11
+,p_prn_height=>8.5
+,p_prn_orientation=>'HORIZONTAL'
+,p_prn_page_header=>'Details'
+,p_prn_page_header_font_color=>'#000000'
+,p_prn_page_header_font_family=>'Helvetica'
+,p_prn_page_header_font_weight=>'normal'
+,p_prn_page_header_font_size=>'12'
+,p_prn_page_footer_font_color=>'#000000'
+,p_prn_page_footer_font_family=>'Helvetica'
+,p_prn_page_footer_font_weight=>'normal'
+,p_prn_page_footer_font_size=>'12'
+,p_prn_header_bg_color=>'#EEEEEE'
+,p_prn_header_font_color=>'#000000'
+,p_prn_header_font_family=>'Helvetica'
+,p_prn_header_font_weight=>'bold'
+,p_prn_header_font_size=>'10'
+,p_prn_body_bg_color=>'#FFFFFF'
+,p_prn_body_font_color=>'#000000'
+,p_prn_body_font_family=>'Helvetica'
+,p_prn_body_font_weight=>'normal'
+,p_prn_body_font_size=>'10'
+,p_prn_border_width=>.5
+,p_prn_page_header_alignment=>'CENTER'
+,p_prn_page_footer_alignment=>'CENTER'
+,p_prn_border_color=>'#666666'
+);
+wwv_flow_api.create_region_column(
+ p_id=>wwv_flow_api.id(239587294757541428)
+,p_name=>'ID'
+,p_source_type=>'DB_COLUMN'
+,p_source_expression=>'ID'
+,p_data_type=>'NUMBER'
+,p_is_query_only=>false
+,p_item_type=>'NATIVE_HIDDEN'
+,p_display_sequence=>30
+,p_attribute_01=>'N'
+,p_filter_is_required=>false
+,p_use_as_row_header=>false
+,p_enable_sort_group=>true
+,p_enable_control_break=>true
+,p_is_primary_key=>true
+,p_duplicate_value=>true
+,p_include_in_export=>false
+);
+wwv_flow_api.create_region_column(
+ p_id=>wwv_flow_api.id(239587528424541431)
+,p_name=>'PREV_READING'
+,p_source_type=>'DB_COLUMN'
+,p_source_expression=>'PREV_READING'
+,p_data_type=>'NUMBER'
+,p_is_query_only=>false
+,p_item_type=>'NATIVE_NUMBER_FIELD'
+,p_heading=>'Prev Reading'
+,p_heading_alignment=>'CENTER'
+,p_display_sequence=>70
+,p_value_alignment=>'LEFT'
+,p_attribute_03=>'right'
+,p_is_required=>false
+,p_enable_filter=>true
+,p_filter_is_required=>false
+,p_filter_lov_type=>'NONE'
+,p_use_as_row_header=>false
+,p_enable_sort_group=>true
+,p_enable_control_break=>true
+,p_enable_hide=>true
+,p_is_primary_key=>false
+,p_duplicate_value=>true
+,p_include_in_export=>true
+);
+wwv_flow_api.create_region_column(
+ p_id=>wwv_flow_api.id(239587627610541432)
+,p_name=>'METER_REF_NO'
+,p_source_type=>'DB_COLUMN'
+,p_source_expression=>'METER_REF_NO'
+,p_data_type=>'VARCHAR2'
+,p_is_query_only=>false
+,p_item_type=>'NATIVE_POPUP_LOV'
+,p_heading=>'Meter Ref No'
+,p_heading_alignment=>'CENTER'
+,p_display_sequence=>60
+,p_value_alignment=>'LEFT'
+,p_attribute_01=>'POPUP'
+,p_attribute_02=>'FIRST_ROWSET'
+,p_attribute_03=>'N'
+,p_attribute_04=>'N'
+,p_attribute_05=>'N'
+,p_is_required=>false
+,p_max_length=>500
+,p_lov_type=>'SQL_QUERY'
+,p_lov_source=>wwv_flow_string.join(wwv_flow_t_varchar2(
+'SELECT DBS.METER_REF_NO AS D, DBS.METER_REF_NO AS R    ',
+'FROM DGMS_BILLS_SETUP DBS',
+'WHERE DBS.PLOT_ID = :PLOT_ID',
+'',
+'',
+'',
+'',
+'',
+''))
+,p_lov_display_extra=>true
+,p_lov_display_null=>true
+,p_lov_cascade_parent_items=>'PLOT_ID'
+,p_ajax_optimize_refresh=>true
+,p_filter_is_required=>false
+,p_use_as_row_header=>false
+,p_enable_hide=>true
+,p_is_primary_key=>false
+,p_duplicate_value=>true
+,p_include_in_export=>true
+);
+wwv_flow_api.create_region_column(
+ p_id=>wwv_flow_api.id(241766629424903018)
+,p_name=>'CUSTOMER_NAME'
+,p_source_type=>'DB_COLUMN'
+,p_source_expression=>'CUSTOMER_NAME'
+,p_data_type=>'VARCHAR2'
+,p_is_query_only=>false
+,p_item_type=>'NATIVE_HIDDEN'
+,p_display_sequence=>120
+,p_attribute_01=>'N'
+,p_filter_is_required=>false
+,p_use_as_row_header=>false
+,p_enable_sort_group=>false
+,p_is_primary_key=>false
+,p_duplicate_value=>true
+,p_include_in_export=>false
+);
+wwv_flow_api.create_region_column(
+ p_id=>wwv_flow_api.id(241768089210903032)
+,p_name=>'BILL_ID'
+,p_source_type=>'DB_COLUMN'
+,p_source_expression=>'BILL_ID'
+,p_data_type=>'NUMBER'
+,p_is_query_only=>false
+,p_item_type=>'NATIVE_NUMBER_FIELD'
+,p_heading=>'Bill Id'
+,p_heading_alignment=>'CENTER'
+,p_display_sequence=>180
+,p_value_alignment=>'RIGHT'
+,p_attribute_03=>'right'
+,p_is_required=>false
+,p_enable_filter=>true
+,p_filter_is_required=>false
+,p_filter_lov_type=>'NONE'
+,p_use_as_row_header=>false
+,p_enable_sort_group=>true
+,p_enable_control_break=>true
+,p_enable_hide=>true
+,p_is_primary_key=>false
+,p_duplicate_value=>true
+,p_include_in_export=>true
+);
+wwv_flow_api.create_region_column(
+ p_id=>wwv_flow_api.id(241863898802322906)
+,p_name=>'APEX$ROW_SELECTOR'
+,p_item_type=>'NATIVE_ROW_SELECTOR'
+,p_display_sequence=>10
+,p_attribute_01=>'Y'
+,p_attribute_02=>'Y'
+,p_attribute_03=>'N'
+);
+wwv_flow_api.create_region_column(
+ p_id=>wwv_flow_api.id(241863986676322907)
+,p_name=>'APEX$ROW_ACTION'
+,p_item_type=>'NATIVE_ROW_ACTION'
+,p_display_sequence=>20
+);
+wwv_flow_api.create_region_column(
+ p_id=>wwv_flow_api.id(241864424919322912)
+,p_name=>'PLOT_ID'
+,p_source_type=>'DB_COLUMN'
+,p_source_expression=>'PLOT_ID'
+,p_data_type=>'VARCHAR2'
+,p_is_query_only=>false
+,p_item_type=>'NATIVE_TEXT_FIELD'
+,p_heading=>'Plot ID'
+,p_heading_alignment=>'CENTER'
+,p_display_sequence=>50
+,p_value_alignment=>'LEFT'
+,p_attribute_05=>'BOTH'
+,p_is_required=>false
+,p_max_length=>100
+,p_enable_filter=>true
+,p_filter_operators=>'C:S:CASE_INSENSITIVE:REGEXP'
+,p_filter_is_required=>false
+,p_filter_text_case=>'MIXED'
+,p_filter_exact_match=>true
+,p_filter_lov_type=>'DISTINCT'
+,p_use_as_row_header=>false
+,p_enable_sort_group=>true
+,p_enable_control_break=>true
+,p_enable_hide=>true
+,p_is_primary_key=>false
+,p_duplicate_value=>true
+,p_include_in_export=>false
+);
+wwv_flow_api.create_region_column(
+ p_id=>wwv_flow_api.id(241867087930322938)
+,p_name=>'CURRENT_READING'
+,p_source_type=>'DB_COLUMN'
+,p_source_expression=>'CURRENT_READING'
+,p_data_type=>'VARCHAR2'
+,p_is_query_only=>false
+,p_item_type=>'NATIVE_TEXT_FIELD'
+,p_heading=>'Current Reading'
+,p_heading_alignment=>'CENTER'
+,p_display_sequence=>140
+,p_value_alignment=>'LEFT'
+,p_attribute_05=>'BOTH'
+,p_is_required=>false
+,p_max_length=>100
+,p_enable_filter=>true
+,p_filter_operators=>'C:S:CASE_INSENSITIVE:REGEXP'
+,p_filter_is_required=>false
+,p_filter_text_case=>'MIXED'
+,p_filter_lov_type=>'NONE'
+,p_use_as_row_header=>false
+,p_enable_sort_group=>false
+,p_enable_hide=>true
+,p_is_primary_key=>false
+,p_duplicate_value=>true
+,p_include_in_export=>true
+);
+wwv_flow_api.create_region_column(
+ p_id=>wwv_flow_api.id(241867133345322939)
+,p_name=>'BILL_PAYMENT'
+,p_source_type=>'DB_COLUMN'
+,p_source_expression=>'BILL_PAYMENT'
+,p_data_type=>'VARCHAR2'
+,p_is_query_only=>false
+,p_item_type=>'NATIVE_TEXT_FIELD'
+,p_heading=>'Bill Payment'
+,p_heading_alignment=>'CENTER'
+,p_display_sequence=>150
+,p_value_alignment=>'LEFT'
+,p_attribute_05=>'BOTH'
+,p_is_required=>false
+,p_max_length=>100
+,p_enable_filter=>true
+,p_filter_operators=>'C:S:CASE_INSENSITIVE:REGEXP'
+,p_filter_is_required=>false
+,p_filter_text_case=>'MIXED'
+,p_filter_lov_type=>'NONE'
+,p_use_as_row_header=>false
+,p_enable_sort_group=>false
+,p_enable_hide=>true
+,p_is_primary_key=>false
+,p_duplicate_value=>true
+,p_include_in_export=>true
+);
+wwv_flow_api.create_region_column(
+ p_id=>wwv_flow_api.id(241867226689322940)
+,p_name=>'UNIT_CONSUMED'
+,p_source_type=>'DB_COLUMN'
+,p_source_expression=>'UNIT_CONSUMED'
+,p_data_type=>'VARCHAR2'
+,p_is_query_only=>false
+,p_item_type=>'NATIVE_TEXT_FIELD'
+,p_heading=>'Unit Consumed'
+,p_heading_alignment=>'CENTER'
+,p_display_sequence=>160
+,p_value_alignment=>'LEFT'
+,p_attribute_05=>'BOTH'
+,p_is_required=>false
+,p_max_length=>100
+,p_enable_filter=>true
+,p_filter_operators=>'C:S:CASE_INSENSITIVE:REGEXP'
+,p_filter_is_required=>false
+,p_filter_text_case=>'MIXED'
+,p_filter_lov_type=>'NONE'
+,p_use_as_row_header=>false
+,p_enable_sort_group=>false
+,p_enable_hide=>true
+,p_is_primary_key=>false
+,p_duplicate_value=>true
+,p_include_in_export=>true
+);
+wwv_flow_api.create_interactive_grid(
+ p_id=>wwv_flow_api.id(239587104413541427)
+,p_internal_uid=>239587104413541427
+,p_is_editable=>true
+,p_edit_operations=>'i'
+,p_lost_update_check_type=>'VALUES'
+,p_add_row_if_empty=>false
+,p_submit_checked_rows=>false
+,p_lazy_loading=>false
+,p_requires_filter=>false
+,p_select_first_row=>false
+,p_fixed_row_height=>false
+,p_pagination_type=>'SCROLL'
+,p_show_total_row_count=>true
+,p_show_toolbar=>true
+,p_toolbar_buttons=>'RESET'
+,p_enable_save_public_report=>false
+,p_enable_subscriptions=>true
+,p_enable_flashback=>false
+,p_define_chart_view=>false
+,p_enable_download=>false
+,p_download_formats=>null
+,p_fixed_header=>'PAGE'
+,p_show_icon_view=>false
+,p_show_detail_view=>false
+);
+wwv_flow_api.create_ig_report(
+ p_id=>wwv_flow_api.id(241869195597322643)
+,p_interactive_grid_id=>wwv_flow_api.id(239587104413541427)
+,p_static_id=>'2418692'
+,p_type=>'PRIMARY'
+,p_default_view=>'GRID'
+,p_show_row_number=>false
+,p_settings_area_expanded=>true
+);
+wwv_flow_api.create_ig_report_view(
+ p_id=>wwv_flow_api.id(241869391480322642)
+,p_report_id=>wwv_flow_api.id(241869195597322643)
+,p_view_type=>'GRID'
+,p_stretch_columns=>true
+,p_srv_exclude_null_values=>false
+,p_srv_only_display_columns=>true
+,p_edit_mode=>false
+);
+wwv_flow_api.create_ig_report_column(
+ p_id=>wwv_flow_api.id(241869802055322636)
+,p_view_id=>wwv_flow_api.id(241869391480322642)
+,p_display_seq=>1
+,p_column_id=>wwv_flow_api.id(239587294757541428)
+,p_is_visible=>true
+,p_is_frozen=>false
+);
+wwv_flow_api.create_ig_report_column(
+ p_id=>wwv_flow_api.id(241872529478322626)
+,p_view_id=>wwv_flow_api.id(241869391480322642)
+,p_display_seq=>4
+,p_column_id=>wwv_flow_api.id(239587528424541431)
+,p_is_visible=>true
+,p_is_frozen=>false
+);
+wwv_flow_api.create_ig_report_column(
+ p_id=>wwv_flow_api.id(241873444730322623)
+,p_view_id=>wwv_flow_api.id(241869391480322642)
+,p_display_seq=>3
+,p_column_id=>wwv_flow_api.id(239587627610541432)
+,p_is_visible=>true
+,p_is_frozen=>false
+);
+wwv_flow_api.create_ig_report_column(
+ p_id=>wwv_flow_api.id(241946761593558527)
+,p_view_id=>wwv_flow_api.id(241869391480322642)
+,p_display_seq=>1
+,p_column_id=>wwv_flow_api.id(241863986676322907)
+,p_is_visible=>true
+,p_is_frozen=>true
+,p_width=>40
+);
+wwv_flow_api.create_ig_report_column(
+ p_id=>wwv_flow_api.id(241993800316972426)
+,p_view_id=>wwv_flow_api.id(241869391480322642)
+,p_display_seq=>2
+,p_column_id=>wwv_flow_api.id(241864424919322912)
+,p_is_visible=>false
+,p_is_frozen=>false
+);
+wwv_flow_api.create_ig_report_column(
+ p_id=>wwv_flow_api.id(242686844729189806)
+,p_view_id=>wwv_flow_api.id(241869391480322642)
+,p_display_seq=>10
+,p_column_id=>wwv_flow_api.id(241766629424903018)
+,p_is_visible=>true
+,p_is_frozen=>false
+);
+wwv_flow_api.create_ig_report_column(
+ p_id=>wwv_flow_api.id(242759308949162554)
+,p_view_id=>wwv_flow_api.id(241869391480322642)
+,p_display_seq=>5
+,p_column_id=>wwv_flow_api.id(241867087930322938)
+,p_is_visible=>true
+,p_is_frozen=>false
+);
+wwv_flow_api.create_ig_report_column(
+ p_id=>wwv_flow_api.id(242760256742162551)
+,p_view_id=>wwv_flow_api.id(241869391480322642)
+,p_display_seq=>8
+,p_column_id=>wwv_flow_api.id(241867133345322939)
+,p_is_visible=>true
+,p_is_frozen=>false
+);
+wwv_flow_api.create_ig_report_column(
+ p_id=>wwv_flow_api.id(242761196808162549)
+,p_view_id=>wwv_flow_api.id(241869391480322642)
+,p_display_seq=>7
+,p_column_id=>wwv_flow_api.id(241867226689322940)
+,p_is_visible=>true
+,p_is_frozen=>false
+);
+wwv_flow_api.create_ig_report_column(
+ p_id=>wwv_flow_api.id(243190024331138379)
+,p_view_id=>wwv_flow_api.id(241869391480322642)
+,p_display_seq=>9
+,p_column_id=>wwv_flow_api.id(241768089210903032)
+,p_is_visible=>false
+,p_is_frozen=>false
 );
 wwv_flow_api.create_page_plug(
  p_id=>wwv_flow_api.id(180795760020701202)
@@ -580,6 +1013,9 @@ wwv_flow_api.create_page_plug(
 ,p_menu_template_id=>wwv_flow_api.id(158417037603282996)
 ,p_plug_query_options=>'DERIVED_REPORT_COLUMNS'
 );
+end;
+/
+begin
 wwv_flow_api.create_page_button(
  p_id=>wwv_flow_api.id(183427074452467901)
 ,p_button_sequence=>10
@@ -591,6 +1027,33 @@ wwv_flow_api.create_page_button(
 ,p_button_is_hot=>'Y'
 ,p_button_image_alt=>'Add'
 ,p_button_position=>'BELOW_BOX'
+,p_button_condition_type=>'NEVER'
+);
+wwv_flow_api.create_page_button(
+ p_id=>wwv_flow_api.id(241864192736322909)
+,p_button_sequence=>10
+,p_button_plug_id=>wwv_flow_api.id(239587083110541426)
+,p_button_name=>'ADD_DETAIL'
+,p_button_action=>'SUBMIT'
+,p_button_template_options=>'#DEFAULT#:t-Button--primary'
+,p_button_template_id=>wwv_flow_api.id(158418434726282996)
+,p_button_is_hot=>'Y'
+,p_button_image_alt=>'Add Detail'
+,p_button_position=>'REGION_TEMPLATE_COPY'
+,p_button_condition_type=>'NEVER'
+,p_database_action=>'INSERT'
+);
+wwv_flow_api.create_page_button(
+ p_id=>wwv_flow_api.id(241769323629903045)
+,p_button_sequence=>20
+,p_button_plug_id=>wwv_flow_api.id(239587083110541426)
+,p_button_name=>'save'
+,p_button_action=>'SUBMIT'
+,p_button_template_options=>'#DEFAULT#'
+,p_button_template_id=>wwv_flow_api.id(158418434726282996)
+,p_button_is_hot=>'Y'
+,p_button_image_alt=>'Save'
+,p_button_position=>'REGION_TEMPLATE_COPY'
 ,p_button_condition_type=>'NEVER'
 );
 wwv_flow_api.create_page_button(
@@ -638,7 +1101,8 @@ wwv_flow_api.create_page_button(
 );
 wwv_flow_api.create_page_branch(
  p_id=>wwv_flow_api.id(174401518678141903)
-,p_branch_action=>'f?p=&APP_ID.:174:&SESSION.::&DEBUG.&success_msg=#SUCCESS_MSG#'
+,p_branch_name=>'Go To Page 174'
+,p_branch_action=>'f?p=&APP_ID.:174:&SESSION.::&DEBUG.:::&success_msg=#SUCCESS_MSG#'
 ,p_branch_point=>'AFTER_PROCESSING'
 ,p_branch_type=>'REDIRECT_URL'
 ,p_branch_sequence=>1
@@ -646,10 +1110,10 @@ wwv_flow_api.create_page_branch(
 wwv_flow_api.create_page_item(
  p_id=>wwv_flow_api.id(173394154491478734)
 ,p_name=>'P175_MAINTENANCE'
-,p_item_sequence=>350
+,p_item_sequence=>370
 ,p_item_plug_id=>wwv_flow_api.id(174382427556141889)
 ,p_item_default=>'0'
-,p_prompt=>'Maintenance'
+,p_prompt=>'Maintenance Charges'
 ,p_display_as=>'NATIVE_NUMBER_FIELD'
 ,p_cSize=>30
 ,p_tag_css_classes=>'only-numeric'
@@ -660,7 +1124,7 @@ wwv_flow_api.create_page_item(
 wwv_flow_api.create_page_item(
  p_id=>wwv_flow_api.id(173394263026478735)
 ,p_name=>'P175_U_ID'
-,p_item_sequence=>340
+,p_item_sequence=>360
 ,p_item_plug_id=>wwv_flow_api.id(174382427556141889)
 ,p_display_as=>'NATIVE_HIDDEN'
 ,p_attribute_01=>'N'
@@ -668,7 +1132,7 @@ wwv_flow_api.create_page_item(
 wwv_flow_api.create_page_item(
  p_id=>wwv_flow_api.id(173394335269478736)
 ,p_name=>'P175_AQUIFER_CHARGES'
-,p_item_sequence=>370
+,p_item_sequence=>390
 ,p_item_plug_id=>wwv_flow_api.id(174382427556141889)
 ,p_item_default=>'0'
 ,p_prompt=>'Aquifer Charges'
@@ -683,7 +1147,7 @@ wwv_flow_api.create_page_item(
 wwv_flow_api.create_page_item(
  p_id=>wwv_flow_api.id(173394484061478737)
 ,p_name=>'P175_WASA_CHARGES'
-,p_item_sequence=>380
+,p_item_sequence=>400
 ,p_item_plug_id=>wwv_flow_api.id(174382427556141889)
 ,p_item_default=>'0'
 ,p_prompt=>'Wasa Charges'
@@ -698,7 +1162,7 @@ wwv_flow_api.create_page_item(
 wwv_flow_api.create_page_item(
  p_id=>wwv_flow_api.id(173394592447478738)
 ,p_name=>'P175_ELECTRICITY_CHARGES'
-,p_item_sequence=>390
+,p_item_sequence=>410
 ,p_item_plug_id=>wwv_flow_api.id(174382427556141889)
 ,p_item_default=>'0'
 ,p_prompt=>'Electricity Charges'
@@ -712,7 +1176,7 @@ wwv_flow_api.create_page_item(
 wwv_flow_api.create_page_item(
  p_id=>wwv_flow_api.id(173394644182478739)
 ,p_name=>'P175_SPORTS_CLUB'
-,p_item_sequence=>400
+,p_item_sequence=>420
 ,p_item_plug_id=>wwv_flow_api.id(174382427556141889)
 ,p_item_default=>'0'
 ,p_prompt=>'Sports Club'
@@ -727,7 +1191,7 @@ wwv_flow_api.create_page_item(
 wwv_flow_api.create_page_item(
  p_id=>wwv_flow_api.id(173394751873478740)
 ,p_name=>'P175_TRAFFIC_VIOLATION_CHARGES'
-,p_item_sequence=>410
+,p_item_sequence=>430
 ,p_item_plug_id=>wwv_flow_api.id(174382427556141889)
 ,p_item_default=>'0'
 ,p_prompt=>'Traffic Violation Charges'
@@ -742,7 +1206,7 @@ wwv_flow_api.create_page_item(
 wwv_flow_api.create_page_item(
  p_id=>wwv_flow_api.id(173394809696478741)
 ,p_name=>'P175_DAMAGE_CHARGES'
-,p_item_sequence=>420
+,p_item_sequence=>440
 ,p_item_plug_id=>wwv_flow_api.id(174382427556141889)
 ,p_item_default=>'0'
 ,p_prompt=>'Damage Charges'
@@ -757,7 +1221,7 @@ wwv_flow_api.create_page_item(
 wwv_flow_api.create_page_item(
  p_id=>wwv_flow_api.id(173394932429478742)
 ,p_name=>'P175_BY_LAWS_VIOLATION_CHARGES'
-,p_item_sequence=>430
+,p_item_sequence=>450
 ,p_item_plug_id=>wwv_flow_api.id(174382427556141889)
 ,p_item_default=>'0'
 ,p_prompt=>'By Laws Violation Charges'
@@ -771,7 +1235,7 @@ wwv_flow_api.create_page_item(
 wwv_flow_api.create_page_item(
  p_id=>wwv_flow_api.id(173395086898478743)
 ,p_name=>'P175_OTHERS_CHARGES'
-,p_item_sequence=>440
+,p_item_sequence=>460
 ,p_item_plug_id=>wwv_flow_api.id(174382427556141889)
 ,p_item_default=>'0'
 ,p_prompt=>'Others Charges'
@@ -795,26 +1259,29 @@ wwv_flow_api.create_page_item(
 wwv_flow_api.create_page_item(
  p_id=>wwv_flow_api.id(174383251794141890)
 ,p_name=>'P175_BILL_SETUP_ID'
-,p_item_sequence=>50
+,p_item_sequence=>60
 ,p_item_plug_id=>wwv_flow_api.id(174382427556141889)
-,p_prompt=>'Customer Name/Meter Reference #'
+,p_prompt=>'PLOT #/Customer Name'
 ,p_display_as=>'NATIVE_POPUP_LOV'
 ,p_named_lov=>'BILL_SETUP_PLOT_LOV'
 ,p_lov=>wwv_flow_string.join(wwv_flow_t_varchar2(
-'SELECT  DPD.PLOT_NO,DBS.CUSTOMER_NAME,DBR.LIVING_STATUS,DBS.METER_REF_NO,DBS.PORTION ,',
-'    DPD.PLOT_NO||'' - ''|| DBS.CUSTOMER_NAME ||'' (''|| DBR.LIVING_STATUS ||'' - ''|| DBS.METER_REF_NO ||'' - ''|| DBS.PORTION ||'' - ''|| DBS.METER_REF_NO1 ||'' - ''||DBS.METER_REF_NO2||'')'' AS D,',
-'    DBS.ID AS R',
-'FROM DGMS_BILLS_SETUP  DBS',
-'JOIN DGMS_PLOT_DETAILS DPD ON DPD.ID=DBS.PLOT_ID AND DPD.ORG_ID = :P175_ORGANIZATION --:P_ORG_ID',
-'JOIN DGMS_BILLS_SETUP_CHILD DBR ON DBR.BILL_SETUP_ID  = DBS.ID   AND DBR.ORG_ID =:P_ORG_ID',
-'WHERE DBS.ORG_ID = :P_ORG_ID --AND METER_TYPES = :P175_BILL_TYPE --''COMMUNITY BILL''',
-'AND :P175_ID IS NULL',
-'AND DBS.ACTIVE = ''Y'' AND DBR.STATUS=''Y''',
-'AND DPD.ORG_ID =:P175_ORGANIZATION --:P_ORG_ID'))
+'SELECT',
+'    DPD.PLOT_NO,',
+'    DPB.CLIENT_REG_NO,DBS.PLOT_ID, DPD.CATEGORY,--DBR.TARIFF_PER_UNIT,DBR.MAINTENANCE,DBR.WASA__CHARGES,',
+'    DPD.PLOT_NO || '' - '' || DPB.CLIENT_REG_NO || '' '' || DBS.PLOT_ID  ||'' - ''||DPD.CATEGORY AS D,',
+'    DPD.ID AS R',
+'FROM',
+'    DGMS_PLOT_DETAILS DPD',
+'     JOIN DGMS_PLOTS_BOOKING DPB ON DPB.PLOT_ID = DPD.ID  AND DPB.BOOKING_STATUS = ''BOOKED''  AND DPB.ORG_ID = :P175_ORGANIZATION',
+'    ',
+'    LEFT JOIN DGMS_BILLS_SETUP DBS ON DBS.PLOT_ID = DPB.PLOT_ID   --AND DBS.ORG_ID =:P175_ORGANIZATION',
+'    LEFT JOIN DGMS_BILL_RATES DBR ON DBR.ID = DPD.ID',
+'    AND DPD.ORG_ID =:P175_ORGANIZATION;'))
 ,p_lov_cascade_parent_items=>'P175_ORGANIZATION'
 ,p_ajax_optimize_refresh=>'Y'
 ,p_cSize=>32
 ,p_cMaxlength=>255
+,p_begin_on_new_line=>'N'
 ,p_display_when=>'P175_ID'
 ,p_display_when_type=>'ITEM_IS_NULL'
 ,p_field_template=>wwv_flow_api.id(158420883850282999)
@@ -826,11 +1293,12 @@ wwv_flow_api.create_page_item(
 ,p_attribute_04=>'N'
 ,p_attribute_05=>'Y'
 ,p_attribute_06=>'0'
+,p_attribute_10=>'CATEGORY:P175_MARLA_CATEGORY'
 );
 wwv_flow_api.create_page_item(
  p_id=>wwv_flow_api.id(174383698540141890)
 ,p_name=>'P175_PLOT_ID'
-,p_item_sequence=>90
+,p_item_sequence=>100
 ,p_item_plug_id=>wwv_flow_api.id(174382427556141889)
 ,p_display_as=>'NATIVE_HIDDEN'
 ,p_attribute_01=>'N'
@@ -838,7 +1306,7 @@ wwv_flow_api.create_page_item(
 wwv_flow_api.create_page_item(
  p_id=>wwv_flow_api.id(174384069715141890)
 ,p_name=>'P175_METER'
-,p_item_sequence=>100
+,p_item_sequence=>110
 ,p_item_plug_id=>wwv_flow_api.id(174382427556141889)
 ,p_display_as=>'NATIVE_HIDDEN'
 ,p_attribute_01=>'N'
@@ -846,7 +1314,7 @@ wwv_flow_api.create_page_item(
 wwv_flow_api.create_page_item(
  p_id=>wwv_flow_api.id(174384420325141891)
 ,p_name=>'P175_BILL_MONTH'
-,p_item_sequence=>80
+,p_item_sequence=>90
 ,p_item_plug_id=>wwv_flow_api.id(174382427556141889)
 ,p_prompt=>'Bill Month'
 ,p_display_as=>'NATIVE_POPUP_LOV'
@@ -888,7 +1356,7 @@ wwv_flow_api.create_page_item(
 wwv_flow_api.create_page_item(
  p_id=>wwv_flow_api.id(174384886242141891)
 ,p_name=>'P175_ISSUE_DATE'
-,p_item_sequence=>110
+,p_item_sequence=>120
 ,p_item_plug_id=>wwv_flow_api.id(174382427556141889)
 ,p_prompt=>'Issue Date'
 ,p_format_mask=>'DD-MON-YYYY'
@@ -912,7 +1380,7 @@ wwv_flow_api.create_page_item(
 wwv_flow_api.create_page_item(
  p_id=>wwv_flow_api.id(174385205424141891)
 ,p_name=>'P175_DUE_DATE'
-,p_item_sequence=>120
+,p_item_sequence=>130
 ,p_item_plug_id=>wwv_flow_api.id(174382427556141889)
 ,p_prompt=>'Due Date'
 ,p_format_mask=>'DD-MON-YYYY'
@@ -936,7 +1404,7 @@ wwv_flow_api.create_page_item(
 wwv_flow_api.create_page_item(
  p_id=>wwv_flow_api.id(174385695004141892)
 ,p_name=>'P175_PER_UNIT_RATE_300'
-,p_item_sequence=>230
+,p_item_sequence=>250
 ,p_item_plug_id=>wwv_flow_api.id(174382427556141889)
 ,p_display_as=>'NATIVE_HIDDEN'
 ,p_display_when_type=>'NEVER'
@@ -945,15 +1413,12 @@ wwv_flow_api.create_page_item(
 wwv_flow_api.create_page_item(
  p_id=>wwv_flow_api.id(174386032444141892)
 ,p_name=>'P175_PER_UNIT_RATE_300_ABOVE'
-,p_item_sequence=>240
+,p_item_sequence=>260
 ,p_item_plug_id=>wwv_flow_api.id(174382427556141889)
 ,p_display_as=>'NATIVE_HIDDEN'
 ,p_display_when_type=>'NEVER'
 ,p_attribute_01=>'Y'
 );
-end;
-/
-begin
 wwv_flow_api.create_page_item(
  p_id=>wwv_flow_api.id(174386440036141892)
 ,p_name=>'P175_PAYABLE'
@@ -987,7 +1452,7 @@ wwv_flow_api.create_page_item(
 wwv_flow_api.create_page_item(
  p_id=>wwv_flow_api.id(174387297370141893)
 ,p_name=>'P175_UNIT_CONSUMED'
-,p_item_sequence=>160
+,p_item_sequence=>170
 ,p_item_plug_id=>wwv_flow_api.id(174382427556141889)
 ,p_prompt=>'Consumed Unit'
 ,p_display_as=>'NATIVE_NUMBER_FIELD'
@@ -995,6 +1460,7 @@ wwv_flow_api.create_page_item(
 ,p_cMaxlength=>255
 ,p_tag_attributes=>'READONLY'
 ,p_begin_on_new_line=>'N'
+,p_display_when_type=>'NEVER'
 ,p_field_template=>wwv_flow_api.id(158420883850282999)
 ,p_item_template_options=>'#DEFAULT#'
 ,p_attribute_03=>'right'
@@ -1002,13 +1468,14 @@ wwv_flow_api.create_page_item(
 wwv_flow_api.create_page_item(
  p_id=>wwv_flow_api.id(174387661109141893)
 ,p_name=>'P175_CURRENT_READING'
-,p_item_sequence=>140
+,p_item_sequence=>150
 ,p_item_plug_id=>wwv_flow_api.id(174382427556141889)
 ,p_prompt=>'Current Reading'
 ,p_display_as=>'NATIVE_NUMBER_FIELD'
 ,p_cSize=>32
 ,p_cMaxlength=>255
 ,p_tag_css_classes=>'only-numeric1'
+,p_display_when_type=>'NEVER'
 ,p_field_template=>wwv_flow_api.id(158420883850282999)
 ,p_item_template_options=>'#DEFAULT#'
 ,p_attribute_03=>'right'
@@ -1016,7 +1483,7 @@ wwv_flow_api.create_page_item(
 wwv_flow_api.create_page_item(
  p_id=>wwv_flow_api.id(174388026235141893)
 ,p_name=>'P175_PREV_READING'
-,p_item_sequence=>150
+,p_item_sequence=>160
 ,p_item_plug_id=>wwv_flow_api.id(174382427556141889)
 ,p_prompt=>'Prev Reading'
 ,p_display_as=>'NATIVE_NUMBER_FIELD'
@@ -1024,6 +1491,7 @@ wwv_flow_api.create_page_item(
 ,p_tag_css_classes=>'only-numeric'
 ,p_tag_attributes=>'READONLY'
 ,p_begin_on_new_line=>'N'
+,p_display_when_type=>'NEVER'
 ,p_read_only_when=>'P175_ID'
 ,p_read_only_when_type=>'ITEM_IS_NOT_NULL'
 ,p_field_template=>wwv_flow_api.id(158420883850282999)
@@ -1033,7 +1501,7 @@ wwv_flow_api.create_page_item(
 wwv_flow_api.create_page_item(
  p_id=>wwv_flow_api.id(174388499576141894)
 ,p_name=>'P175_CREATED_BY'
-,p_item_sequence=>260
+,p_item_sequence=>280
 ,p_item_plug_id=>wwv_flow_api.id(174382427556141889)
 ,p_display_as=>'NATIVE_HIDDEN'
 ,p_display_when_type=>'NEVER'
@@ -1042,7 +1510,7 @@ wwv_flow_api.create_page_item(
 wwv_flow_api.create_page_item(
  p_id=>wwv_flow_api.id(174388897719141894)
 ,p_name=>'P175_CREATED_ON'
-,p_item_sequence=>270
+,p_item_sequence=>290
 ,p_item_plug_id=>wwv_flow_api.id(174382427556141889)
 ,p_display_as=>'NATIVE_HIDDEN'
 ,p_display_when_type=>'NEVER'
@@ -1051,7 +1519,7 @@ wwv_flow_api.create_page_item(
 wwv_flow_api.create_page_item(
  p_id=>wwv_flow_api.id(174389298289141894)
 ,p_name=>'P175_UPDATED_BY'
-,p_item_sequence=>280
+,p_item_sequence=>300
 ,p_item_plug_id=>wwv_flow_api.id(174382427556141889)
 ,p_display_as=>'NATIVE_HIDDEN'
 ,p_display_when_type=>'NEVER'
@@ -1060,7 +1528,7 @@ wwv_flow_api.create_page_item(
 wwv_flow_api.create_page_item(
  p_id=>wwv_flow_api.id(174389653698141894)
 ,p_name=>'P175_UPDATED_ON'
-,p_item_sequence=>290
+,p_item_sequence=>310
 ,p_item_plug_id=>wwv_flow_api.id(174382427556141889)
 ,p_display_as=>'NATIVE_HIDDEN'
 ,p_display_when_type=>'NEVER'
@@ -1069,7 +1537,7 @@ wwv_flow_api.create_page_item(
 wwv_flow_api.create_page_item(
  p_id=>wwv_flow_api.id(174390005463141895)
 ,p_name=>'P175_ORG_ID'
-,p_item_sequence=>300
+,p_item_sequence=>320
 ,p_item_plug_id=>wwv_flow_api.id(174382427556141889)
 ,p_item_default=>'SELECT TO_NUMBER(:p_org_id) FROM DUAL;'
 ,p_item_default_type=>'SQL_QUERY'
@@ -1105,7 +1573,7 @@ wwv_flow_api.create_page_item(
 wwv_flow_api.create_page_item(
  p_id=>wwv_flow_api.id(174390852577141896)
 ,p_name=>'P175_ACTIVE'
-,p_item_sequence=>310
+,p_item_sequence=>330
 ,p_item_plug_id=>wwv_flow_api.id(174382427556141889)
 ,p_prompt=>'New'
 ,p_display_as=>'NATIVE_TEXT_FIELD'
@@ -1121,7 +1589,7 @@ wwv_flow_api.create_page_item(
 wwv_flow_api.create_page_item(
  p_id=>wwv_flow_api.id(174391286601141896)
 ,p_name=>'P175_STATUS'
-,p_item_sequence=>320
+,p_item_sequence=>340
 ,p_item_plug_id=>wwv_flow_api.id(174382427556141889)
 ,p_prompt=>'New'
 ,p_display_as=>'NATIVE_TEXT_FIELD'
@@ -1137,7 +1605,7 @@ wwv_flow_api.create_page_item(
 wwv_flow_api.create_page_item(
  p_id=>wwv_flow_api.id(174391619118141896)
 ,p_name=>'P175_MONTH'
-,p_item_sequence=>70
+,p_item_sequence=>80
 ,p_item_plug_id=>wwv_flow_api.id(174382427556141889)
 ,p_display_as=>'NATIVE_HIDDEN'
 ,p_attribute_01=>'N'
@@ -1145,7 +1613,7 @@ wwv_flow_api.create_page_item(
 wwv_flow_api.create_page_item(
  p_id=>wwv_flow_api.id(174392020057141897)
 ,p_name=>'P175_APPROVAL_STATUS'
-,p_item_sequence=>330
+,p_item_sequence=>350
 ,p_item_plug_id=>wwv_flow_api.id(174382427556141889)
 ,p_item_default=>'PENDING'
 ,p_prompt=>'New'
@@ -1179,7 +1647,7 @@ wwv_flow_api.create_page_item(
 wwv_flow_api.create_page_item(
  p_id=>wwv_flow_api.id(174477474295060647)
 ,p_name=>'P175_READING_DATE'
-,p_item_sequence=>130
+,p_item_sequence=>140
 ,p_item_plug_id=>wwv_flow_api.id(174382427556141889)
 ,p_prompt=>'Reading Date'
 ,p_format_mask=>'DD-MON-YYYY'
@@ -1202,12 +1670,15 @@ wwv_flow_api.create_page_item(
 wwv_flow_api.create_page_item(
  p_id=>wwv_flow_api.id(179323094576122205)
 ,p_name=>'P175_TARIFF_PER_UNIT'
-,p_item_sequence=>250
+,p_item_sequence=>70
 ,p_item_plug_id=>wwv_flow_api.id(174382427556141889)
-,p_prompt=>'Tariff Per Unit'
+,p_prompt=>'Water Tariff Per Unit'
 ,p_display_as=>'NATIVE_NUMBER_FIELD'
 ,p_cSize=>30
 ,p_tag_css_classes=>'only-numeric1'
+,p_begin_on_new_line=>'N'
+,p_display_when=>'P175_ID'
+,p_display_when_type=>'ITEM_IS_NULL'
 ,p_field_template=>wwv_flow_api.id(158420883850282999)
 ,p_item_template_options=>'#DEFAULT#:t-Form-fieldContainer--stretchInputs'
 ,p_attribute_03=>'right'
@@ -1215,7 +1686,7 @@ wwv_flow_api.create_page_item(
 wwv_flow_api.create_page_item(
  p_id=>wwv_flow_api.id(208784338798026008)
 ,p_name=>'P175_WATER'
-,p_item_sequence=>360
+,p_item_sequence=>380
 ,p_item_plug_id=>wwv_flow_api.id(174382427556141889)
 ,p_item_default=>'0'
 ,p_prompt=>'Water'
@@ -1229,7 +1700,7 @@ wwv_flow_api.create_page_item(
 wwv_flow_api.create_page_item(
  p_id=>wwv_flow_api.id(208784417158026009)
 ,p_name=>'P175_CCTV_REBATE_FOR_PHASE_2'
-,p_item_sequence=>450
+,p_item_sequence=>470
 ,p_item_plug_id=>wwv_flow_api.id(174382427556141889)
 ,p_item_default=>'0'
 ,p_prompt=>'CCTV Rebate For Phase 2'
@@ -1243,7 +1714,7 @@ wwv_flow_api.create_page_item(
 wwv_flow_api.create_page_item(
  p_id=>wwv_flow_api.id(212079847236416139)
 ,p_name=>'P175_DISCOUNT_STATUS'
-,p_item_sequence=>470
+,p_item_sequence=>490
 ,p_item_plug_id=>wwv_flow_api.id(174382427556141889)
 ,p_display_as=>'NATIVE_HIDDEN'
 ,p_attribute_01=>'N'
@@ -1251,7 +1722,7 @@ wwv_flow_api.create_page_item(
 wwv_flow_api.create_page_item(
  p_id=>wwv_flow_api.id(212080996740416150)
 ,p_name=>'P175_BILL_SU_C_ID'
-,p_item_sequence=>480
+,p_item_sequence=>500
 ,p_item_plug_id=>wwv_flow_api.id(174382427556141889)
 ,p_display_as=>'NATIVE_HIDDEN'
 ,p_attribute_01=>'N'
@@ -1259,7 +1730,7 @@ wwv_flow_api.create_page_item(
 wwv_flow_api.create_page_item(
  p_id=>wwv_flow_api.id(215022717680938601)
 ,p_name=>'P175_BILL_SETUP_ID_1'
-,p_item_sequence=>60
+,p_item_sequence=>70
 ,p_item_plug_id=>wwv_flow_api.id(174382427556141889)
 ,p_prompt=>'Customer Name/Meter Reference #'
 ,p_display_as=>'NATIVE_TEXT_FIELD'
@@ -1291,11 +1762,12 @@ wwv_flow_api.create_page_item(
 wwv_flow_api.create_page_item(
  p_id=>wwv_flow_api.id(238432122624584949)
 ,p_name=>'P175_CURRENT_READING1'
-,p_item_sequence=>170
+,p_item_sequence=>180
 ,p_item_plug_id=>wwv_flow_api.id(174382427556141889)
 ,p_prompt=>'Current Reading1'
 ,p_display_as=>'NATIVE_NUMBER_FIELD'
 ,p_cSize=>30
+,p_display_when_type=>'NEVER'
 ,p_field_template=>wwv_flow_api.id(158420883850282999)
 ,p_item_template_options=>'#DEFAULT#'
 ,p_attribute_03=>'right'
@@ -1303,13 +1775,14 @@ wwv_flow_api.create_page_item(
 wwv_flow_api.create_page_item(
  p_id=>wwv_flow_api.id(238432242014584950)
 ,p_name=>'P175_PREVIOUS_READING1'
-,p_item_sequence=>180
+,p_item_sequence=>190
 ,p_item_plug_id=>wwv_flow_api.id(174382427556141889)
 ,p_prompt=>'Previous Reading1'
 ,p_display_as=>'NATIVE_NUMBER_FIELD'
 ,p_cSize=>30
 ,p_tag_attributes=>'READONLY'
 ,p_begin_on_new_line=>'N'
+,p_display_when_type=>'NEVER'
 ,p_field_template=>wwv_flow_api.id(158420883850282999)
 ,p_item_template_options=>'#DEFAULT#'
 ,p_attribute_03=>'right'
@@ -1318,7 +1791,7 @@ wwv_flow_api.create_page_item(
  p_id=>wwv_flow_api.id(239571649509462838)
 ,p_name=>'P175_ORGANIZATION'
 ,p_is_required=>true
-,p_item_sequence=>10
+,p_item_sequence=>50
 ,p_item_plug_id=>wwv_flow_api.id(174382427556141889)
 ,p_use_cache_before_default=>'NO'
 ,p_prompt=>'Organization'
@@ -1331,6 +1804,8 @@ wwv_flow_api.create_page_item(
 'ORDER BY SITE_ID ASC;'))
 ,p_lov_display_null=>'YES'
 ,p_cSize=>30
+,p_display_when=>'P175_ID'
+,p_display_when_type=>'ITEM_IS_NULL'
 ,p_field_template=>wwv_flow_api.id(158420883850282999)
 ,p_item_template_options=>'#DEFAULT#'
 ,p_lov_display_extra=>'YES'
@@ -1344,7 +1819,7 @@ wwv_flow_api.create_page_item(
 wwv_flow_api.create_page_item(
  p_id=>wwv_flow_api.id(239571767690462839)
 ,p_name=>'P175_RENT'
-,p_item_sequence=>500
+,p_item_sequence=>520
 ,p_item_plug_id=>wwv_flow_api.id(174382427556141889)
 ,p_display_as=>'NATIVE_HIDDEN'
 ,p_attribute_01=>'N'
@@ -1352,13 +1827,14 @@ wwv_flow_api.create_page_item(
 wwv_flow_api.create_page_item(
  p_id=>wwv_flow_api.id(240436758970089201)
 ,p_name=>'P175_CONSUMED_UNITS1'
-,p_item_sequence=>190
+,p_item_sequence=>200
 ,p_item_plug_id=>wwv_flow_api.id(174382427556141889)
 ,p_prompt=>'Consumed Units'
 ,p_display_as=>'NATIVE_NUMBER_FIELD'
 ,p_cSize=>30
 ,p_tag_attributes=>'READONLY'
 ,p_begin_on_new_line=>'N'
+,p_display_when_type=>'NEVER'
 ,p_field_template=>wwv_flow_api.id(158420883850282999)
 ,p_item_template_options=>'#DEFAULT#'
 ,p_attribute_03=>'right'
@@ -1366,11 +1842,12 @@ wwv_flow_api.create_page_item(
 wwv_flow_api.create_page_item(
  p_id=>wwv_flow_api.id(240436895791089202)
 ,p_name=>'P175_CURRENT_READING2'
-,p_item_sequence=>200
+,p_item_sequence=>210
 ,p_item_plug_id=>wwv_flow_api.id(174382427556141889)
 ,p_prompt=>'Current Reading 2'
 ,p_display_as=>'NATIVE_NUMBER_FIELD'
 ,p_cSize=>30
+,p_display_when_type=>'NEVER'
 ,p_field_template=>wwv_flow_api.id(158420883850282999)
 ,p_item_template_options=>'#DEFAULT#'
 ,p_attribute_03=>'right'
@@ -1378,13 +1855,14 @@ wwv_flow_api.create_page_item(
 wwv_flow_api.create_page_item(
  p_id=>wwv_flow_api.id(240436975100089203)
 ,p_name=>'P175_PREVIOUS_READING2'
-,p_item_sequence=>210
+,p_item_sequence=>220
 ,p_item_plug_id=>wwv_flow_api.id(174382427556141889)
 ,p_prompt=>'Previous Reading2'
 ,p_display_as=>'NATIVE_NUMBER_FIELD'
 ,p_cSize=>30
 ,p_tag_attributes=>'READONLY'
 ,p_begin_on_new_line=>'N'
+,p_display_when_type=>'NEVER'
 ,p_field_template=>wwv_flow_api.id(158420883850282999)
 ,p_item_template_options=>'#DEFAULT#'
 ,p_attribute_03=>'right'
@@ -1392,13 +1870,14 @@ wwv_flow_api.create_page_item(
 wwv_flow_api.create_page_item(
  p_id=>wwv_flow_api.id(240437095728089204)
 ,p_name=>'P175_CONSUMED_UNITS2'
-,p_item_sequence=>220
+,p_item_sequence=>230
 ,p_item_plug_id=>wwv_flow_api.id(174382427556141889)
 ,p_prompt=>'Consumed Units'
 ,p_display_as=>'NATIVE_NUMBER_FIELD'
 ,p_cSize=>30
 ,p_tag_attributes=>'READONLY'
 ,p_begin_on_new_line=>'N'
+,p_display_when_type=>'NEVER'
 ,p_field_template=>wwv_flow_api.id(158420883850282999)
 ,p_item_template_options=>'#DEFAULT#'
 ,p_attribute_03=>'right'
@@ -1406,9 +1885,10 @@ wwv_flow_api.create_page_item(
 wwv_flow_api.create_page_item(
  p_id=>wwv_flow_api.id(240437113294089205)
 ,p_name=>'P175_INTERNET_CHARGES'
-,p_item_sequence=>460
+,p_item_sequence=>480
 ,p_item_plug_id=>wwv_flow_api.id(174382427556141889)
-,p_prompt=>'Internet Charges'
+,p_item_default=>'0'
+,p_prompt=>'Storm Fiber'
 ,p_display_as=>'NATIVE_NUMBER_FIELD'
 ,p_cSize=>30
 ,p_begin_on_new_line=>'N'
@@ -1419,7 +1899,7 @@ wwv_flow_api.create_page_item(
 wwv_flow_api.create_page_item(
  p_id=>wwv_flow_api.id(240438427140089218)
 ,p_name=>'P175_SUM_OF_CONSUMED_UNITS'
-,p_item_sequence=>490
+,p_item_sequence=>510
 ,p_item_plug_id=>wwv_flow_api.id(174382427556141889)
 ,p_prompt=>'<B>Sum Of Consumed Units</B>'
 ,p_display_as=>'NATIVE_DISPLAY_ONLY'
@@ -1430,6 +1910,45 @@ wwv_flow_api.create_page_item(
 ,p_attribute_02=>'VALUE'
 ,p_attribute_04=>'Y'
 ,p_attribute_05=>'PLAIN'
+);
+wwv_flow_api.create_page_item(
+ p_id=>wwv_flow_api.id(241381817807919129)
+,p_name=>'P175_MARLA_CATEGORY'
+,p_item_sequence=>240
+,p_item_plug_id=>wwv_flow_api.id(174382427556141889)
+,p_display_as=>'NATIVE_HIDDEN'
+,p_attribute_01=>'N'
+);
+wwv_flow_api.create_page_item(
+ p_id=>wwv_flow_api.id(241383151750919142)
+,p_name=>'P175_BILL'
+,p_item_sequence=>540
+,p_item_plug_id=>wwv_flow_api.id(174382427556141889)
+,p_prompt=>'<B>BILL PAYMENT</B>'
+,p_display_as=>'NATIVE_TEXT_FIELD'
+,p_cSize=>30
+,p_field_template=>wwv_flow_api.id(158420883850282999)
+,p_item_template_options=>'#DEFAULT#'
+,p_attribute_01=>'N'
+,p_attribute_02=>'N'
+,p_attribute_04=>'TEXT'
+,p_attribute_05=>'BOTH'
+);
+wwv_flow_api.create_page_item(
+ p_id=>wwv_flow_api.id(241767715347903029)
+,p_name=>'P175_HEAD_ID'
+,p_item_sequence=>550
+,p_item_plug_id=>wwv_flow_api.id(174382427556141889)
+,p_display_as=>'NATIVE_HIDDEN'
+,p_attribute_01=>'N'
+);
+wwv_flow_api.create_page_item(
+ p_id=>wwv_flow_api.id(241864038715322908)
+,p_name=>'P175_PLOT_ID1'
+,p_item_sequence=>530
+,p_item_plug_id=>wwv_flow_api.id(174382427556141889)
+,p_display_as=>'NATIVE_HIDDEN'
+,p_attribute_01=>'N'
 );
 wwv_flow_api.create_page_validation(
  p_id=>wwv_flow_api.id(174472954044060602)
@@ -1503,6 +2022,9 @@ wwv_flow_api.create_page_validation(
 ,p_associated_item=>wwv_flow_api.id(174383251794141890)
 ,p_error_display_location=>'INLINE_WITH_FIELD_AND_NOTIFICATION'
 );
+end;
+/
+begin
 wwv_flow_api.create_page_validation(
  p_id=>wwv_flow_api.id(215555789741985513)
 ,p_validation_name=>'BILL CHECKING FROM ACCOUNT'
@@ -1569,6 +2091,7 @@ wwv_flow_api.create_page_validation(
 ,p_validation=>'P175_CURRENT_READING'
 ,p_validation_type=>'ITEM_NOT_NULL'
 ,p_error_message=>'Current Reading must have some value.'
+,p_validation_condition_type=>'NEVER'
 ,p_associated_item=>wwv_flow_api.id(174387661109141893)
 ,p_error_display_location=>'INLINE_WITH_FIELD_AND_NOTIFICATION'
 );
@@ -1592,6 +2115,7 @@ wwv_flow_api.create_page_validation(
 ,p_validation_type=>'EXPRESSION'
 ,p_error_message=>'Consumed Unit is not null and not equal zero...!'
 ,p_always_execute=>'Y'
+,p_validation_condition_type=>'NEVER'
 ,p_when_button_pressed=>wwv_flow_api.id(174401266037141903)
 ,p_associated_item=>wwv_flow_api.id(174387297370141893)
 ,p_error_display_location=>'INLINE_WITH_FIELD_AND_NOTIFICATION'
@@ -1662,6 +2186,7 @@ wwv_flow_api.create_page_validation(
 ,p_validation2=>'PLSQL'
 ,p_validation_type=>'FUNC_BODY_RETURNING_ERR_TEXT'
 ,p_always_execute=>'Y'
+,p_validation_condition_type=>'NEVER'
 ,p_when_button_pressed=>wwv_flow_api.id(174401266037141903)
 ,p_associated_item=>wwv_flow_api.id(174384886242141891)
 ,p_error_display_location=>'INLINE_WITH_FIELD_AND_NOTIFICATION'
@@ -1731,8 +2256,61 @@ wwv_flow_api.create_page_validation(
 ,p_validation2=>'PLSQL'
 ,p_validation_type=>'FUNC_BODY_RETURNING_ERR_TEXT'
 ,p_always_execute=>'Y'
+,p_validation_condition_type=>'NEVER'
 ,p_when_button_pressed=>wwv_flow_api.id(174401266037141903)
 ,p_associated_item=>wwv_flow_api.id(174385205424141891)
+,p_error_display_location=>'INLINE_WITH_FIELD_AND_NOTIFICATION'
+);
+wwv_flow_api.create_page_validation(
+ p_id=>wwv_flow_api.id(241867960067322947)
+,p_tabular_form_region_id=>wwv_flow_api.id(239587083110541426)
+,p_validation_name=>'Duplicate value not insert'
+,p_validation_sequence=>160
+,p_validation=>wwv_flow_string.join(wwv_flow_t_varchar2(
+'-- DECLARE',
+'--    count_1    NUMBER;',
+'--    meter_ref  VARCHAR2(100);',
+'--    apex_status VARCHAR2(1); ',
+'',
+'-- BEGIN',
+'--    apex_status := :APEX$ROW_STATUS; ',
+'',
+'--    IF apex_status = ''C'' THEN',
+'--       SELECT COUNT(1)',
+'--         INTO count_1',
+'--         FROM DGMS_BILLS_SETUP',
+'--        WHERE ID = :ID AND PLOT_ID = :PLOT_ID;',
+'',
+'--       IF count_1 > 1 THEN',
+'--           return ''This Meter Reference already entered !'';',
+'--       END IF;',
+'',
+'--       SELECT METER_REF_NO',
+'--         INTO meter_ref',
+'--         FROM DGMS_BILLS_SETUP',
+'--        WHERE ID = :ID;',
+'--    END IF;',
+'-- END;',
+'',
+'',
+'',
+'declare',
+'v_count number;',
+'begin',
+'select COUNT(METER_REF_NO) into v_count from DGMS_BILLS_SETUP',
+'     WHERE UPPER(METER_REF_NO) = UPPER(:METER_REF_NO)',
+'     and ID = :ID AND PLOT_ID = :PLOT_ID;',
+'  ',
+'if v_count > 1 then',
+'return false;',
+'else ',
+'return true;',
+'end if;',
+'end;'))
+,p_validation2=>'PLSQL'
+,p_validation_type=>'FUNC_BODY_RETURNING_BOOLEAN'
+,p_error_message=>'Duplicate value not insert in Meter Ref NO'
+,p_associated_column=>'METER_REF_NO'
 ,p_error_display_location=>'INLINE_WITH_FIELD_AND_NOTIFICATION'
 );
 wwv_flow_api.create_page_da_event(
@@ -1745,6 +2323,7 @@ wwv_flow_api.create_page_da_event(
 ,p_triggering_condition_type=>'NOT_NULL'
 ,p_bind_type=>'bind'
 ,p_bind_event_type=>'change'
+,p_display_when_type=>'NEVER'
 );
 wwv_flow_api.create_page_da_action(
  p_id=>wwv_flow_api.id(182034474700771937)
@@ -1868,14 +2447,12 @@ wwv_flow_api.create_page_da_action(
 'END;'))
 ,p_attribute_02=>'P175_BILL_SETUP_ID,P175_BILL_TYPE,P175_AQUIFER_CHARGES,P175_WASA_CHARGES,P175_ELECTRICITY_CHARGES,P175_SPORTS_CLUB,P175_TRAFFIC_VIOLATION_CHARGES,P175_DAMAGE_CHARGES,P175_BY_LAWS_VIOLATION_CHARGES,P175_OTHERS_CHARGES,P175_ARREARS,P175_MAINTENANCE,P17'
 ||'5_WATER,P175_CCTV_REBATE_FOR_PHASE_2,P175_CURRENT_READING,P175_INTERNET_CHARGES,P175_BILL_TYPE1,P175_TARIFF_PER_UNIT'
-,p_attribute_03=>'P175_METER,P175_PREV_READING,P175_ARREARS,P175_PLOT_ID,P175_PAYABLE,P175_PAYABLE_AFTER_DUE_DATE,P175_UNIT_CONSUMED,P175_U_ID,P175_MONTH,P175_BILL_SU_C_ID,P175_TARIFF_PER_UNIT,P175_PREVIOUS_READING1,P175_PREVIOUS_READING2,P175_SUM_OF_CONSUMED_UNITS'
+,p_attribute_03=>'P175_METER,P175_PREV_READING,P175_ARREARS,P175_PLOT_ID1,P175_PAYABLE,P175_PAYABLE_AFTER_DUE_DATE,P175_UNIT_CONSUMED,P175_U_ID,P175_MONTH,P175_BILL_SU_C_ID,P175_TARIFF_PER_UNIT,P175_PREVIOUS_READING1,P175_PREVIOUS_READING2'
 ,p_attribute_04=>'Y'
 ,p_attribute_05=>'PLSQL'
 ,p_wait_for_result=>'Y'
+,p_server_condition_type=>'NEVER'
 );
-end;
-/
-begin
 wwv_flow_api.create_page_da_action(
  p_id=>wwv_flow_api.id(215555507378985511)
 ,p_event_id=>wwv_flow_api.id(209733321284740417)
@@ -1929,10 +2506,10 @@ wwv_flow_api.create_page_da_action(
 'unit number;unit1 number;unit2 number;unit_amt number;unit_amt1 number; unit_amt2 number;sum_of_units number;',
 '',
 'BEGIN',
-'    unit:=  NVL(:P175_CURRENT_READING,0) - NVL(:P175_PREV_READING,0);',
-'    unit1:= NVL(:P175_CURRENT_READING1,0) - NVL(:P175_PREVIOUS_READING1,0);',
-'    unit2:= NVL(:P175_CURRENT_READING2,0) - NVL(:P175_PREVIOUS_READING2,0);',
-'     sum_of_units :=NVL(unit,0) + NVL(unit1,0) +NVL(unit2,0);',
+'    -- unit:=  NVL(:P175_CURRENT_READING,0) - NVL(:P175_PREV_READING,0);',
+'    -- unit1:= NVL(:P175_CURRENT_READING1,0) - NVL(:P175_PREVIOUS_READING1,0);',
+'    -- unit2:= NVL(:P175_CURRENT_READING2,0) - NVL(:P175_PREVIOUS_READING2,0);',
+'    --  sum_of_units :=NVL(unit,0) + NVL(unit1,0) +NVL(unit2,0);',
 '',
 '      unit_amt1:= nvl(:P175_MAINTENANCE,0)',
 '    +nvl(:P175_AQUIFER_CHARGES,0)',
@@ -1944,19 +2521,20 @@ wwv_flow_api.create_page_da_action(
 '    +nvl(:P175_BY_LAWS_VIOLATION_CHARGES,0)',
 '    +nvl(:P175_OTHERS_CHARGES,0)',
 '    +nvl(:P175_WATER,0)',
-'    +nvl(:P175_CCTV_REBATE_FOR_PHASE_2,0)+nvl(:P175_INTERNET_CHARGES,0);',
-'       unit_amt:= sum_of_units * NVL(:P175_TARIFF_PER_UNIT,0);',
-'       unit_amt2:=NVL(unit_amt1,0)+NVL(unit_amt,0);',
+'    +nvl(:P175_CCTV_REBATE_FOR_PHASE_2,0)+nvl(:P175_INTERNET_CHARGES,0) ',
+'    +nvl (:P175_BILL,0);',
+'    --    unit_amt:= sum_of_units * NVL(:P175_TARIFF_PER_UNIT,0);',
+'    --    unit_amt2:=NVL(unit_amt1,0)+NVL(unit_amt,0);',
 '',
-'    B :=unit_amt2*10/100;',
-'    if unit_amt2!=0 then',
-'        :P175_PAYABLE_AFTER_DUE_DATE:=unit_amt2+B;--+nvl(:P175_ARREARS,0);',
+'    B :=unit_amt1*10/100;',
+'    if unit_amt1!=0 then',
+'        :P175_PAYABLE_AFTER_DUE_DATE:=unit_amt1+B;--+nvl(:P175_ARREARS,0);',
 '    end if;',
-'        :P175_PAYABLE:=nvl(unit_amt2,0);--+nvl(:P175_ARREARS,0);',
+'        :P175_PAYABLE:=nvl(unit_amt1,0);--+nvl(:P175_ARREARS,0);',
 '',
 'END;'))
 ,p_attribute_02=>'P175_AQUIFER_CHARGES,P175_WASA_CHARGES,P175_ELECTRICITY_CHARGES,P175_SPORTS_CLUB,P175_TRAFFIC_VIOLATION_CHARGES,P175_DAMAGE_CHARGES,P175_BY_LAWS_VIOLATION_CHARGES,P175_OTHERS_CHARGES,P175_ARREARS,P175_MAINTENANCE,P175_WATER,P175_CCTV_REBATE_FOR_PHASE'
-||'_2,P175_INTERNET_CHARGES,P175_TARIFF_PER_UNIT,P175_CURRENT_READING1,P175_PREVIOUS_READING1,P175_CURRENT_READING2,P175_PREVIOUS_READING2,P175_UNIT_CONSUMED,P175_PREV_READING,P175_CURRENT_READING'
+||'_2,P175_INTERNET_CHARGES,P175_TARIFF_PER_UNIT,P175_CURRENT_READING1,P175_PREVIOUS_READING1,P175_CURRENT_READING2,P175_PREVIOUS_READING2,P175_UNIT_CONSUMED,P175_PREV_READING,P175_CURRENT_READING,P175_BILL'
 ,p_attribute_03=>'P175_PAYABLE,P175_PAYABLE_AFTER_DUE_DATE'
 ,p_attribute_04=>'Y'
 ,p_attribute_05=>'PLSQL'
@@ -2115,6 +2693,7 @@ wwv_flow_api.create_page_da_action(
 ,p_action=>'NATIVE_REFRESH'
 ,p_affected_elements_type=>'ITEM'
 ,p_affected_elements=>'P175_PAYABLE,P175_PAYABLE_AFTER_DUE_DATE'
+,p_server_condition_type=>'NEVER'
 );
 wwv_flow_api.create_page_da_event(
  p_id=>wwv_flow_api.id(209733694867740420)
@@ -2152,9 +2731,8 @@ wwv_flow_api.create_page_da_action(
 ,p_execute_on_page_init=>'Y'
 ,p_action=>'NATIVE_CLEAR'
 ,p_affected_elements_type=>'ITEM'
-,p_affected_elements=>'P175_PER_UNIT_RATE_300,P175_CURRENT_READING,P175_UNIT_CONSUMED,P175_ISSUE_DATE,P175_DUE_DATE,P175_ARREARS,P175_PAYABLE,P175_PAYABLE_AFTER_DUE_DATE,P175_PREV_READING,P175_BILL_SETUP_ID,P175_BILL_TYPE1,P175_ORGANIZATION,P175_TARIFF_PER_UNIT,P175_CCTV_R'
-||'EBATE_FOR_PHASE_2,P175_OTHERS_CHARGES,P175_BY_LAWS_VIOLATION_CHARGES,P175_DAMAGE_CHARGES,P175_TRAFFIC_VIOLATION_CHARGES,P175_SPORTS_CLUB,P175_ELECTRICITY_CHARGES,P175_AQUIFER_CHARGES,P175_WATER,P175_MAINTENANCE,P175_CURRENT_READING1,P175_PREVIOUS_REA'
-||'DING1,P175_CONSUMED_UNITS1,P175_CURRENT_READING2,P175_PREVIOUS_READING2,P175_CONSUMED_UNITS2,P175_WASA_CHARGES'
+,p_affected_elements=>'P175_PER_UNIT_RATE_300,P175_CURRENT_READING,P175_UNIT_CONSUMED,P175_ISSUE_DATE,P175_DUE_DATE,P175_ARREARS,P175_PAYABLE,P175_PAYABLE_AFTER_DUE_DATE,P175_PREV_READING,P175_BILL_SETUP_ID,P175_BILL_TYPE1,P175_ORGANIZATION,P175_TARIFF_PER_UNIT,P175_CURREN'
+||'T_READING1,P175_PREVIOUS_READING1,P175_CONSUMED_UNITS1,P175_CURRENT_READING2,P175_PREVIOUS_READING2,P175_CONSUMED_UNITS2,P175_BILL,P175_MARLA_CATEGORY'
 );
 wwv_flow_api.create_page_da_event(
  p_id=>wwv_flow_api.id(209733999129740423)
@@ -2164,6 +2742,7 @@ wwv_flow_api.create_page_da_event(
 ,p_triggering_element=>'P175_CURRENT_READING,P175_TARIFF_PER_UNIT,P175_CURRENT_READING1,P175_CURRENT_READING2'
 ,p_bind_type=>'bind'
 ,p_bind_event_type=>'keyup'
+,p_display_when_type=>'NEVER'
 );
 wwv_flow_api.create_page_da_action(
  p_id=>wwv_flow_api.id(209733161546740415)
@@ -2291,20 +2870,305 @@ wwv_flow_api.create_page_da_action(
 ,p_affected_elements_type=>'ITEM'
 ,p_affected_elements=>'P175_DUE_DATE'
 );
-wwv_flow_api.create_page_process(
- p_id=>wwv_flow_api.id(174402499823141904)
-,p_process_sequence=>10
-,p_process_point=>'AFTER_SUBMIT'
-,p_region_id=>wwv_flow_api.id(174382427556141889)
-,p_process_type=>'NATIVE_FORM_DML'
-,p_process_name=>'Process form DGMS BILLS DETAIL FORM'
-,p_attribute_01=>'REGION_SOURCE'
-,p_attribute_05=>'Y'
-,p_attribute_06=>'Y'
+wwv_flow_api.create_page_da_event(
+ p_id=>wwv_flow_api.id(241382489926919135)
+,p_name=>'New'
+,p_event_sequence=>140
+,p_triggering_element_type=>'ITEM'
+,p_triggering_element=>'P175_MARLA_CATEGORY'
+,p_bind_type=>'bind'
+,p_bind_event_type=>'change'
+);
+wwv_flow_api.create_page_da_action(
+ p_id=>wwv_flow_api.id(241382534037919136)
+,p_event_id=>wwv_flow_api.id(241382489926919135)
+,p_event_result=>'TRUE'
+,p_action_sequence=>10
+,p_execute_on_page_init=>'N'
+,p_action=>'NATIVE_SET_VALUE'
+,p_affected_elements_type=>'ITEM'
+,p_affected_elements=>'P175_TARIFF_PER_UNIT,P175_MAINTENANCE,P175_WASA_CHARGES'
+,p_attribute_01=>'SQL_STATEMENT'
+,p_attribute_03=>wwv_flow_string.join(wwv_flow_t_varchar2(
+'SELECT TARIFF_PER_UNIT,MAINTENANCE,WASA__CHARGES',
+'FROM DGMS_BILL_RATES',
+'WHERE MARLA_CATEGORY=:P175_MARLA_CATEGORY AND ACTIVE=''Y'';'))
+,p_attribute_07=>'P175_MARLA_CATEGORY'
 ,p_attribute_08=>'Y'
-,p_error_display_location=>'INLINE_IN_NOTIFICATION'
-,p_process_when_button_id=>wwv_flow_api.id(174401266037141903)
-,p_process_when_type=>'NEVER'
+,p_attribute_09=>'N'
+,p_wait_for_result=>'Y'
+);
+end;
+/
+begin
+wwv_flow_api.create_page_da_action(
+ p_id=>wwv_flow_api.id(241382682878919137)
+,p_event_id=>wwv_flow_api.id(241382489926919135)
+,p_event_result=>'TRUE'
+,p_action_sequence=>20
+,p_execute_on_page_init=>'N'
+,p_action=>'NATIVE_REFRESH'
+,p_affected_elements_type=>'ITEM'
+,p_affected_elements=>'P175_TARIFF_PER_UNIT'
+,p_server_condition_type=>'NEVER'
+);
+wwv_flow_api.create_page_da_event(
+ p_id=>wwv_flow_api.id(241864265668322910)
+,p_name=>'ADD DETAIL'
+,p_event_sequence=>150
+,p_triggering_element_type=>'BUTTON'
+,p_triggering_button_id=>wwv_flow_api.id(241864192736322909)
+,p_bind_type=>'bind'
+,p_bind_event_type=>'click'
+);
+wwv_flow_api.create_page_da_action(
+ p_id=>wwv_flow_api.id(241864323490322911)
+,p_event_id=>wwv_flow_api.id(241864265668322910)
+,p_event_result=>'TRUE'
+,p_action_sequence=>10
+,p_execute_on_page_init=>'N'
+,p_action=>'NATIVE_JAVASCRIPT_CODE'
+,p_attribute_01=>'apex.region( "LINEID" ).widget().interactiveGrid( "getActions" ).invoke( "selection-add-row" );'
+);
+wwv_flow_api.create_page_da_action(
+ p_id=>wwv_flow_api.id(227236664179843017)
+,p_event_id=>wwv_flow_api.id(241864265668322910)
+,p_event_result=>'TRUE'
+,p_action_sequence=>20
+,p_execute_on_page_init=>'N'
+,p_action=>'NATIVE_JAVASCRIPT_CODE'
+,p_attribute_01=>'apex.region("LINEID").call("getActions").set("edit", true);'
+);
+wwv_flow_api.create_page_da_event(
+ p_id=>wwv_flow_api.id(241765379524903005)
+,p_name=>'set value'
+,p_event_sequence=>160
+,p_triggering_element_type=>'COLUMN'
+,p_triggering_region_id=>wwv_flow_api.id(239587083110541426)
+,p_triggering_element=>'METER_REF_NO'
+,p_bind_type=>'bind'
+,p_bind_event_type=>'change'
+);
+wwv_flow_api.create_page_da_action(
+ p_id=>wwv_flow_api.id(241765403350903006)
+,p_event_id=>wwv_flow_api.id(241765379524903005)
+,p_event_result=>'TRUE'
+,p_action_sequence=>10
+,p_execute_on_page_init=>'Y'
+,p_action=>'NATIVE_SET_VALUE'
+,p_affected_elements_type=>'COLUMN'
+,p_affected_elements=>'PREV_READING'
+,p_attribute_01=>'SQL_STATEMENT'
+,p_attribute_03=>wwv_flow_string.join(wwv_flow_t_varchar2(
+'select  DISTINCT PREV_READING from dgms_bills_setuP',
+'WHERE METER_REF_NO = :METER_REF_NO',
+'AND PLOT_ID =:PLOT_ID',
+'',
+'',
+''))
+,p_attribute_07=>'METER_REF_NO,PLOT_ID'
+,p_attribute_08=>'Y'
+,p_attribute_09=>'N'
+,p_wait_for_result=>'Y'
+);
+wwv_flow_api.create_page_da_event(
+ p_id=>wwv_flow_api.id(241765506081903007)
+,p_name=>'New_3'
+,p_event_sequence=>180
+,p_triggering_element_type=>'COLUMN'
+,p_triggering_region_id=>wwv_flow_api.id(239587083110541426)
+,p_triggering_element=>'CURRENT_READING,PREV_READING'
+,p_bind_type=>'bind'
+,p_bind_event_type=>'keyup'
+);
+wwv_flow_api.create_page_da_action(
+ p_id=>wwv_flow_api.id(241765690078903008)
+,p_event_id=>wwv_flow_api.id(241765506081903007)
+,p_event_result=>'TRUE'
+,p_action_sequence=>10
+,p_execute_on_page_init=>'Y'
+,p_action=>'NATIVE_SET_VALUE'
+,p_affected_elements_type=>'COLUMN'
+,p_affected_elements=>'UNIT_CONSUMED'
+,p_attribute_01=>'PLSQL_EXPRESSION'
+,p_attribute_04=>'nvl(:CURRENT_READING,0) - nvl(:PREV_READING,0)'
+,p_attribute_07=>'CURRENT_READING,PREV_READING'
+,p_attribute_08=>'Y'
+,p_attribute_09=>'N'
+,p_wait_for_result=>'Y'
+);
+wwv_flow_api.create_page_da_event(
+ p_id=>wwv_flow_api.id(241865780703322925)
+,p_name=>'Get Plot_id'
+,p_event_sequence=>180
+,p_triggering_element_type=>'COLUMN'
+,p_triggering_region_id=>wwv_flow_api.id(239587083110541426)
+,p_triggering_element=>'PLOT_ID'
+,p_bind_type=>'bind'
+,p_bind_event_type=>'click'
+);
+wwv_flow_api.create_page_da_action(
+ p_id=>wwv_flow_api.id(241865866755322926)
+,p_event_id=>wwv_flow_api.id(241865780703322925)
+,p_event_result=>'TRUE'
+,p_action_sequence=>10
+,p_execute_on_page_init=>'Y'
+,p_action=>'NATIVE_SET_VALUE'
+,p_affected_elements_type=>'COLUMN'
+,p_affected_elements=>'PLOT_ID'
+,p_attribute_01=>'SQL_STATEMENT'
+,p_attribute_03=>wwv_flow_string.join(wwv_flow_t_varchar2(
+'SELECT DISTINCT PLOT_ID ',
+'FROM DGMS_BILLS_SETUP ',
+'WHERE PLOT_ID=:P175_BILL_SETUP_ID  ',
+'',
+'',
+'-- SELECT DISTINCT     DBS.PLOT_ID --|| '' - '' ||DPD.PLOT_NO  as PLOT_NO  , DBS.PLOT_ID as PLOT_ID',
+'-- FROM DGMS_PLOT_DETAILS DPD',
+'-- LEFT JOIN DGMS_BILLS_SETUP DBS ON DBS.PLOT_ID = DPD.ID',
+'-- WHERE DBS.PLOT_ID = :P175_BILL_SETUP_ID',
+'',
+'',
+''))
+,p_attribute_07=>'P175_BILL_SETUP_ID'
+,p_attribute_08=>'Y'
+,p_attribute_09=>'N'
+,p_wait_for_result=>'Y'
+);
+wwv_flow_api.create_page_da_event(
+ p_id=>wwv_flow_api.id(241866619612322934)
+,p_name=>'New_1'
+,p_event_sequence=>190
+,p_triggering_element_type=>'COLUMN'
+,p_triggering_region_id=>wwv_flow_api.id(239587083110541426)
+,p_triggering_element=>'BILL_PAYMENT'
+,p_bind_type=>'bind'
+,p_bind_event_type=>'change'
+);
+wwv_flow_api.create_page_da_action(
+ p_id=>wwv_flow_api.id(241866782820322935)
+,p_event_id=>wwv_flow_api.id(241866619612322934)
+,p_event_result=>'TRUE'
+,p_action_sequence=>10
+,p_execute_on_page_init=>'Y'
+,p_action=>'NATIVE_SET_VALUE'
+,p_affected_elements_type=>'ITEM'
+,p_affected_elements=>'P175_BILL'
+,p_attribute_01=>'PLSQL_EXPRESSION'
+,p_attribute_04=>':BILL_PAYMENT'
+,p_attribute_07=>'BILL_PAYMENT'
+,p_attribute_08=>'Y'
+,p_attribute_09=>'N'
+,p_wait_for_result=>'Y'
+);
+wwv_flow_api.create_page_da_action(
+ p_id=>wwv_flow_api.id(241766447562903016)
+,p_event_id=>wwv_flow_api.id(241866619612322934)
+,p_event_result=>'TRUE'
+,p_action_sequence=>20
+,p_execute_on_page_init=>'N'
+,p_action=>'NATIVE_JAVASCRIPT_CODE'
+,p_affected_elements_type=>'ITEM'
+,p_affected_elements=>'P175_BILL'
+,p_attribute_01=>wwv_flow_string.join(wwv_flow_t_varchar2(
+'var model = apex.region("LINEID").widget().interactiveGrid("getViews", "grid").model; // LINEID is the region id of IG',
+'var n_dist_amount, n_total = 0;',
+'var col_gl_amount = model.getFieldKey("BILL_PAYMENT");',
+'model.forEach(function(igrow)',
+'       {',
+'               ',
+'               n_dist_amount = parseInt(igrow[col_gl_amount], 10);',
+'               if (!isNaN(n_dist_amount)) {',
+'                         n_total += n_dist_amount;',
+'          }',
+'  }',
+'      );',
+'     ',
+'console.log(n_total);',
+'',
+'$s(''P175_BILL'', n_total);'))
+);
+wwv_flow_api.create_page_da_event(
+ p_id=>wwv_flow_api.id(241766035774903012)
+,p_name=>'New_4'
+,p_event_sequence=>200
+,p_triggering_element_type=>'COLUMN'
+,p_triggering_region_id=>wwv_flow_api.id(239587083110541426)
+,p_triggering_element=>'UNIT_CONSUMED'
+,p_bind_type=>'bind'
+,p_bind_event_type=>'change'
+);
+wwv_flow_api.create_page_da_action(
+ p_id=>wwv_flow_api.id(241766174334903013)
+,p_event_id=>wwv_flow_api.id(241766035774903012)
+,p_event_result=>'TRUE'
+,p_action_sequence=>10
+,p_execute_on_page_init=>'Y'
+,p_action=>'NATIVE_SET_VALUE'
+,p_affected_elements_type=>'COLUMN'
+,p_affected_elements=>'BILL_PAYMENT'
+,p_attribute_01=>'PLSQL_EXPRESSION'
+,p_attribute_04=>'nvl(:P175_TARIFF_PER_UNIT,0) * nvl(:UNIT_CONSUMED,0)'
+,p_attribute_07=>'P175_TARIFF_PER_UNIT,UNIT_CONSUMED'
+,p_attribute_08=>'Y'
+,p_attribute_09=>'N'
+,p_wait_for_result=>'Y'
+);
+wwv_flow_api.create_page_da_event(
+ p_id=>wwv_flow_api.id(241768381503903035)
+,p_name=>'New_5'
+,p_event_sequence=>210
+,p_triggering_element_type=>'ITEM'
+,p_triggering_element=>'P175_BILL_SETUP_ID'
+,p_bind_type=>'bind'
+,p_bind_event_type=>'change'
+,p_display_when_type=>'NEVER'
+);
+wwv_flow_api.create_page_da_action(
+ p_id=>wwv_flow_api.id(241768475316903036)
+,p_event_id=>wwv_flow_api.id(241768381503903035)
+,p_event_result=>'TRUE'
+,p_action_sequence=>10
+,p_execute_on_page_init=>'Y'
+,p_action=>'NATIVE_SET_VALUE'
+,p_affected_elements_type=>'ITEM'
+,p_affected_elements=>'P175_MARLA_CATEGORY,P175_TARIFF_PER_UNIT,P175_MAINTENANCE,P175_WASA_CHARGES'
+,p_attribute_01=>'SQL_STATEMENT'
+,p_attribute_03=>wwv_flow_string.join(wwv_flow_t_varchar2(
+'SELECT  DCS.CATEGORY, DBR.TARIFF_PER_UNIT, DBR.MAINTENANCE, DBR.WASA__CHARGES',
+'FROM dgms_categories_setup DCS ',
+'JOIN dgms_bill_rates DBR ON DCS.ID = DBR.CATEGORY_ID',
+'LEFT JOIN DGMS_BILLS_DEATILS DBS ON DBS.ID = DBR.ID',
+'WHERE BILL_SETUP_ID =  :P175_BILL_SETUP_ID',
+'',
+'',
+'',
+''))
+,p_attribute_07=>'P175_BILL_SETUP_ID'
+,p_attribute_08=>'Y'
+,p_attribute_09=>'N'
+,p_wait_for_result=>'Y'
+,p_server_condition_type=>'NEVER'
+);
+wwv_flow_api.create_page_da_event(
+ p_id=>wwv_flow_api.id(232793471596232132)
+,p_name=>'REFRESH GRID'
+,p_event_sequence=>220
+,p_triggering_element_type=>'ITEM'
+,p_triggering_element=>'P175_BILL_SETUP_ID'
+,p_bind_type=>'bind'
+,p_bind_event_type=>'change'
+,p_display_when_type=>'NEVER'
+);
+wwv_flow_api.create_page_da_action(
+ p_id=>wwv_flow_api.id(232793575734232133)
+,p_event_id=>wwv_flow_api.id(232793471596232132)
+,p_event_result=>'TRUE'
+,p_action_sequence=>10
+,p_execute_on_page_init=>'N'
+,p_action=>'NATIVE_REFRESH'
+,p_affected_elements_type=>'REGION'
+,p_affected_region_id=>wwv_flow_api.id(239587083110541426)
 );
 wwv_flow_api.create_page_process(
  p_id=>wwv_flow_api.id(173395673804478749)
@@ -2313,21 +3177,21 @@ wwv_flow_api.create_page_process(
 ,p_process_type=>'NATIVE_PLSQL'
 ,p_process_name=>'PROCESS DGMS BILLS DETAIL'
 ,p_process_sql_clob=>wwv_flow_string.join(wwv_flow_t_varchar2(
+'    begin',
+'    ',
 '    if :P175_ID is null then',
 '    INSERT INTO "DGMS_BILLS_DEATILS" ',
 '   (',
 '	"BILL_SETUP_ID" , ',
 '	"PLOT_ID", ',
-'	"METER", ',
+'	--"METER", ',
 '	"ISSUE_DATE", ',
 '	"DUE_DATE", ',
 '	--"PER_UNIT_RATE_300" , ',
 '	--"PER_UNIT_RATE_300_ABOVE" , ',
 '	"PAYABLE" , ',
 '	"PAYABLE_AFTER_DUE_DATE" , ',
-'	"UNIT_CONSUMED" , ',
-'	"CURRENT_READING" , ',
-'	"PREV_READING" , ',
+'',
 '	"BILL_TYPE", ',
 '	"ACTIVE", ',
 '	"ARREARS" , ',
@@ -2347,23 +3211,20 @@ wwv_flow_api.create_page_process(
 '	"CCTV_REBATE_FOR_PHASE_2" , ',
 '	"TARIFF_PER_UNIT" ,',
 '    "INTERNET_CHARGES", ',
-'    "SUM_OF_CONSUMED_UNITS",',
+'    "BILL_PAYMENT", -- "SUM_OF_CONSUMED_UNITS",',
 '	"BILL_SU_C_ID")',
 '    VALUES',
 '        (',
 '        :P175_BILL_SETUP_ID',
 '        ,:P175_PLOT_ID',
-'        ,:P175_METER',
+'        --,:P175_METER',
 '        ,:P175_ISSUE_DATE',
 '        ,:P175_DUE_DATE',
 '        --,:P175_PER_UNIT_RATE_300',
 '        --,:P175_PER_UNIT_RATE_300_ABOVE',
 '        ,:P175_PAYABLE',
 '        ,:P175_PAYABLE_AFTER_DUE_DATE',
-'        ,:P175_UNIT_CONSUMED',
-'        ,:P175_CURRENT_READING',
-'        ,:P175_PREV_READING',
-'        ,:P175_BILL_TYPE1 --''COMMUNITY BILL''',
+'        ,''COMMUNITY BILL''--:P175_BILL_TYPE1 --''COMMUNITY BILL''',
 '        ,:P175_ACTIVE',
 '        ,:P175_ARREARS',
 '        ,:P175_READING_DATE',
@@ -2382,11 +3243,11 @@ wwv_flow_api.create_page_process(
 '        ,:P175_CCTV_REBATE_FOR_PHASE_2',
 '        ,:P175_TARIFF_PER_UNIT',
 '        ,:P175_INTERNET_CHARGES',
-'        ,:P175_SUM_OF_CONSUMED_UNITS',
+'        ,:P175_BILL--,:P175_SUM_OF_CONSUMED_UNITS',
 '        ,:P175_BILL_SU_C_ID',
 '        );',
 '        COMMIT;',
-'        SELECT "DGMS_BILLS_DEATILS_SEQ".currval  ',
+'       /* SELECT "DGMS_BILLS_DEATILS_SEQ".currval  ',
 '        INTO :P175_ID ',
 '        from DUAL; ',
 '        update DGMS_BILLS_DEATILS',
@@ -2396,7 +3257,8 @@ wwv_flow_api.create_page_process(
 '        where BILL_SETUP_ID=:P175_BILL_SETUP_ID ',
 '        and STATUS=''UNPAID'' ',
 '        and ID!=:P175_ID  ',
-'        and APPROVAL_STATUS != ''REJECTED'';',
+'        and APPROVAL_STATUS != ''REJECTED'';  */',
+'       ',
 'commit;',
 '',
 '        else ',
@@ -2405,8 +3267,8 @@ wwv_flow_api.create_page_process(
 '            --PER_UNIT_RATE_300_ABOVE=:P175_PER_UNIT_RATE_300_ABOVE,',
 '            PAYABLE=:P175_PAYABLE,',
 '            PAYABLE_AFTER_DUE_DATE=:P175_PAYABLE_AFTER_DUE_DATE,',
-'            UNIT_CONSUMED=:P175_UNIT_CONSUMED,',
-'            CURRENT_READING=:P175_CURRENT_READING,',
+'           -- UNIT_CONSUMED=:P175_UNIT_CONSUMED,',
+'           -- CURRENT_READING=:P175_CURRENT_READING,',
 '            UPDATED_BY=:APP_USER,',
 '            UPDATED_ON=SYSDATE,',
 '            TARIFF_PER_UNIT=:P175_TARIFF_PER_UNIT,',
@@ -2420,21 +3282,65 @@ wwv_flow_api.create_page_process(
 '            "BY_LAWS_VIOLATION_CHARGES"=:P175_BY_LAWS_VIOLATION_CHARGES,',
 '            "OTHERS_CHARGES"=:P175_OTHERS_CHARGES,',
 '            "WATER"=:P175_WATER,',
+'            "INTERNET_CHARGES"=:P175_INTERNET_CHARGES,',
 '            "CCTV_REBATE_FOR_PHASE_2"=:P175_CCTV_REBATE_FOR_PHASE_2      ',
 '',
 '    where ID=:P175_ID;',
 '    commit;',
-'',
-'        end if;'))
+' ',
+'        end if;',
+'     ',
+'        EXCEPTION WHEN OTHERS THEN NULL;    ',
+'        end;'))
 ,p_process_clob_language=>'PLSQL'
 ,p_error_display_location=>'INLINE_IN_NOTIFICATION'
-,p_process_when=>'SAVE,CREATE'
-,p_process_when_type=>'REQUEST_IN_CONDITION'
+,p_process_when_button_id=>wwv_flow_api.id(174401266037141903)
 ,p_process_success_message=>'&REQUEST. Successfully...!'
 );
 wwv_flow_api.create_page_process(
+ p_id=>wwv_flow_api.id(241766544403903017)
+,p_process_sequence=>40
+,p_process_point=>'AFTER_SUBMIT'
+,p_region_id=>wwv_flow_api.id(239587083110541426)
+,p_process_type=>'NATIVE_PLSQL'
+,p_process_name=>'INTERACTIVE GRID PROCESS MASTER DETAIL'
+,p_process_sql_clob=>wwv_flow_string.join(wwv_flow_t_varchar2(
+'declare',
+'',
+' V_ID NUMBER ;        ',
+'begin',
+' SELECT "DGMS_BILLS_DEATILS_SEQ".CURRVAL INTO V_ID from DUAL;',
+'',
+'     case :APEX$ROW_STATUS',
+'',
+'     when ''C'' then ',
+'         insert into DGMS_BILLS_SETUP (BILL_ID,  METER_REF_NO, PREV_READING,PLOT_ID, CURRENT_READING, UNIT_CONSUMED, BILL_PAYMENT )',
+'                                values(V_ID, :METER_REF_NO, :PREV_READING,:PLOT_ID, :CURRENT_READING, :UNIT_CONSUMED, :BILL_PAYMENT  )',
+'         returning ID into :ID;',
+'     when ''U'' then',
+'         update DGMS_BILLS_SETUP SET ',
+'         BILL_ID = :P175_ID,',
+'          METER_REF_NO =  :METER_REF_NO, ',
+'          PREV_READING = :PREV_READING,',
+'         PLOT_ID  =  :PLOT_ID,',
+'          CURRENT_READING =:CURRENT_READING,',
+'          UNIT_CONSUMED = :UNIT_CONSUMED,',
+'          BILL_PAYMENT = :BILL_PAYMENT',
+'          ',
+'             where ID  = :ID;',
+'     end case;',
+'     --EXCEPTION WHEN OTHERS THEN NULL;',
+'end;'))
+,p_process_clob_language=>'PLSQL'
+,p_process_error_message=>'testing grid process'
+,p_error_display_location=>'INLINE_IN_NOTIFICATION'
+,p_process_when_button_id=>wwv_flow_api.id(174401266037141903)
+,p_only_for_changed_rows=>'N'
+,p_process_success_message=>'testing grid peocess'
+);
+wwv_flow_api.create_page_process(
  p_id=>wwv_flow_api.id(182652640286267301)
-,p_process_sequence=>30
+,p_process_sequence=>50
 ,p_process_point=>'AFTER_SUBMIT'
 ,p_process_type=>'NATIVE_PLSQL'
 ,p_process_name=>'UPDATE BILL DETAILS'
@@ -2457,92 +3363,6 @@ wwv_flow_api.create_page_process(
 ,p_process_clob_language=>'PLSQL'
 ,p_error_display_location=>'INLINE_IN_NOTIFICATION'
 ,p_process_when_type=>'NEVER'
-);
-wwv_flow_api.create_page_process(
- p_id=>wwv_flow_api.id(174402022849141904)
-,p_process_sequence=>10
-,p_process_point=>'BEFORE_HEADER'
-,p_process_type=>'NATIVE_PLSQL'
-,p_process_name=>'Initialize form DGMS BILLS DETAIL FORM'
-,p_process_sql_clob=>wwv_flow_string.join(wwv_flow_t_varchar2(
-'declare ',
-'bill_SET_ID number;',
-'BILLSU_C_ID number;',
-'begin',
-'if :P175_ID is not null then ',
-'select  BILL_SETUP_ID',
-'        ,METER',
-'        ,ISSUE_DATE',
-'        ,DUE_DATE',
-'        ,PER_UNIT_RATE_300',
-'        ,PER_UNIT_RATE_300_ABOVE',
-'        ,PAYABLE',
-'        ,PAYABLE_AFTER_DUE_DATE',
-'        ,UNIT_CONSUMED',
-'        ,CURRENT_READING',
-'        ,PREV_READING',
-'        ,BILL_TYPE',
-'        ,ARREARS',
-'        ,READING_DATE',
-'        ,MAINTENANCE',
-'        ,AQUIFER_CHARGES',
-'        ,RENT',
-'        ,ELECTRICITY_CHARGES',
-'        ,SPORTS_CLUB',
-'        ,TRAFFIC_VIOLATION_CHARGES',
-'        ,DAMAGE_CHARGES',
-'        ,BY_LAWS_VIOLATION_CHARGES',
-'        ,OTHERS_CHARGES',
-'        ,BILL_MONTH',
-'        ,WATER',
-'        ,CCTV_REBATE_FOR_PHASE_2',
-'        ,TARIFF_PER_UNIT',
-'        ,BILL_SU_C_ID',
-'into    ',
-'        bill_SET_ID',
-'        ,:P175_METER',
-'        ,:P175_ISSUE_DATE',
-'        ,:P175_DUE_DATE',
-'        ,:P175_PER_UNIT_RATE_300',
-'        ,:P175_PER_UNIT_RATE_300_ABOVE',
-'        ,:P175_PAYABLE',
-'        ,:P175_PAYABLE_AFTER_DUE_DATE',
-'        ,:P175_UNIT_CONSUMED',
-'        ,:P175_CURRENT_READING',
-'        ,:P175_PREV_READING',
-'        ,:P175_BILL_TYPE',
-'        ,:P175_ARREARS',
-'        ,:P175_READING_DATE',
-'        ,:P175_MAINTENANCE',
-'        ,:P175_AQUIFER_CHARGES',
-'        ,:P175_RENT',
-'        ,:P175_ELECTRICITY_CHARGES',
-'        ,:P175_SPORTS_CLUB',
-'        ,:P175_TRAFFIC_VIOLATION_CHARGES',
-'        ,:P175_DAMAGE_CHARGES',
-'        ,:P175_BY_LAWS_VIOLATION_CHARGES',
-'        ,:P175_OTHERS_CHARGES',
-'        ,:P175_BILL_MONTH',
-'        ,:P175_WATER',
-'        ,:P175_CCTV_REBATE_FOR_PHASE_2',
-'        ,:P175_TARIFF_PER_UNIT',
-'        ,BILLSU_C_ID',
-'from DGMS_BILLS_DEATILS',
-'where ID=:P175_ID;',
-'-- :P175_BILL_SETUP_ID:=bill_SET_ID;',
-'SELECT',
-'DPD.PLOT_NO||'' - ''|| DBS.CUSTOMER_NAME ||'' (''|| DBR.LIVING_STATUS ||'' - ''|| DBS.METER_REF_NO ||'' - ''|| DBS.PORTION ||'')''',
-'INTO',
-':P175_BILL_SETUP_ID_1',
-'FROM DGMS_BILLS_SETUP  DBS',
-'JOIN DGMS_PLOT_DETAILS DPD ON DPD.ID=DBS.PLOT_ID --AND DPD.ORG_ID = :P_ORG_ID',
-'JOIN DGMS_BILLS_SETUP_CHILD DBR ON DBR.BILL_SETUP_ID  = DBS.ID   --AND DBR.ORG_ID = :P_ORG_ID',
-'WHERE DBS.ID=bill_SET_ID and DBR.ID=BILLSU_C_ID;',
-'',
-'end if;',
-'',
-'end;'))
-,p_process_clob_language=>'PLSQL'
 );
 wwv_flow_api.create_page_process(
  p_id=>wwv_flow_api.id(173393594915478728)
