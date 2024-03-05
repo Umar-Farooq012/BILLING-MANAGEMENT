@@ -10,6 +10,33 @@ FROM
     LEFT JOIN DGMS_BILLS_SETUP DBS ON DBS.PLOT_ID = DPB.PLOT_ID     --AND DBS.ORG_ID =:P175_ORGANIZATION
     LEFT JOIN DGMS_BILL_RATES DBR ON DBR.ID = DPD.ID
     AND DPD.ORG_ID =:P175_ORGANIZATION; 
+================================================================================
+MASTER DETAIL PROCESS
+declare
 
+ V_ID NUMBER ;        
+begin
+ SELECT "DGMS_BILLS_DEATILS_SEQ".CURRVAL INTO V_ID from DUAL;
+
+     case :APEX$ROW_STATUS
+
+     when 'C' then 
+         insert into DGMS_BILLS_SETUP (BILL_ID,  METER_REF_NO, PREV_READING,PLOT_ID, CURRENT_READING, UNIT_CONSUMED, BILL_PAYMENT )
+                                values(V_ID, :METER_REF_NO, :PREV_READING,:PLOT_ID, :CURRENT_READING, :UNIT_CONSUMED, :BILL_PAYMENT  )
+         returning ID into :ID;
+     when 'U' then
+         update DGMS_BILLS_SETUP SET 
+         BILL_ID = :P175_ID,
+          METER_REF_NO =  :METER_REF_NO, 
+          PREV_READING = :PREV_READING,
+         PLOT_ID  =  :PLOT_ID,
+          CURRENT_READING =:CURRENT_READING,
+          UNIT_CONSUMED = :UNIT_CONSUMED,
+          BILL_PAYMENT = :BILL_PAYMENT
+          
+             where ID  = :ID;
+     end case;
+     --EXCEPTION WHEN OTHERS THEN NULL;
+end;
 
 
