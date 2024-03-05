@@ -1,0 +1,19 @@
+var model = apex.region("LINEID").widget().interactiveGrid("getViews", "grid").model; // LINEID is the static id of Interactive Grid
+var n_dist_amount, n_total = 0;
+var col_gl_amount = model.getFieldKey("BILL_PAYMENT");  // BILL_PAYMENT is the column Of INTERACTIVE GRID
+model.forEach(function(igrow)
+       {
+               
+               n_dist_amount = parseInt(igrow[col_gl_amount], 10);
+               if (!isNaN(n_dist_amount)) {
+                         n_total += n_dist_amount;
+          }
+  }
+      );
+     
+console.log(n_total);
+
+$s('P175_BILL', n_total);        // 'P175_BILL' is the item where we will display the sum of bill_payment
+
+
+
