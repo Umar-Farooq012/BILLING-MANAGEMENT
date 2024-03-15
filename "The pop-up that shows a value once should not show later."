@@ -5,3 +5,4 @@ AND DBS.METER_REF_NO --<> nvl(:P175_METER_REF_NOO,0)
 not in (SELECT regexp_substr(nvl(:P175_METER_REF_NOO,0),'[^:]+', 1, LEVEL) FROM DUAL 
                     connect BY regexp_substr(nvl(:P175_METER_REF_NOO,0), '[^:]+', 1, LEVEL) is not null) ;
 
+
