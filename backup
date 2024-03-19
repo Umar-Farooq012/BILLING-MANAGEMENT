@@ -10,7 +10,7 @@ FROM
     
     LEFT JOIN DGMS_BILLS_SETUP DBS ON DBS.PLOT_ID = DPB.PLOT_ID     --AND DBS.ORG_ID =:P175_ORGANIZATION
     LEFT JOIN DGMS_BILL_RATES DBR ON DBR.ID = DPD.ID
-    AND DPD.ORG_ID =:P175_ORGANIZATION; 
+    AND DPD.ORG_ID =:P175_ORGANIZATION;
 ================================================================================
 MASTER DETAIL PROCESS
 declare
