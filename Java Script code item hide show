@@ -1,0 +1,22 @@
+$('#P187_LIVING_STATUS').change(function(){
+
+    if(apex.item('P187_LIVING_STATUS').getValue() == 'UNDER CONSTRUCTION'){
+         apex.item('P187_TARIFF_PER_UNIT').show();
+   apex.item('P187_WASA__CHARGES').disable();
+    apex.item('P187_MAINTENANCE').disable();
+
+    }
+
+    else if (apex.item('P187_LIVING_STATUS').getValue() == 'EMPTY'){
+        apex.item('P187_TARIFF_PER_UNIT').show();
+   apex.item('P187_WASA__CHARGES').disable();
+    apex.item('P187_MAINTENANCE').disable();
+    
+    }
+     else{
+        apex.item('P187_TARIFF_PER_UNIT').show();
+   apex.item('P187_WASA__CHARGES').enable();
+    apex.item('P187_MAINTENANCE').enable();
+    
+     }
+});
