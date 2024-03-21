@@ -20,3 +20,19 @@ $('#P187_LIVING_STATUS').change(function(){
     
      }
 });
+=================================================================
+others method
+$('#P263_STRUCTURE_STATUS').change(function(){
+
+    if ($v('P263_STRUCTURE_STATUS') == "Sub Structure"){
+        $x_Show("P263_CONSTRUCTION_STAGE");
+
+        $x_Hide("P263_FLOOR");  
+}
+
+else if($v('P263_STRUCTURE_STATUS') == "Super Structure"){
+         $x_Show("P263_FLOOR");
+        $x_Show("P263_CONSTRUCTION_STAGE");
+
+        }
+});
