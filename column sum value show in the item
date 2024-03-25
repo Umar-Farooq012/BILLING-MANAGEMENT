@@ -8,7 +8,7 @@ model.forEach(function(igrow)
                if (!isNaN(n_dist_amount)) {
                          n_total += n_dist_amount;
           }
-  }
+  } 
       );
      
 console.log(n_total);
