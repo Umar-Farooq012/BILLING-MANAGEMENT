@@ -6,7 +6,7 @@ $('#P187_LIVING_STATUS').change(function(){
     apex.item('P187_MAINTENANCE').disable();
 
     }
-
+ 
     else if (apex.item('P187_LIVING_STATUS').getValue() == 'EMPTY'){
         apex.item('P187_TARIFF_PER_UNIT').show();
    apex.item('P187_WASA__CHARGES').disable();
