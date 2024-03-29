@@ -1,0 +1,5 @@
+pay bill button query link
+
+  javascript:$s('P378_DUE_DATE','#DUE_DATE#');
+javascript:$s('P378_PAYABLE','#PAYABLE#');
+javascript:$s('P378_PAYABLE_AFTER_DUE_DATE','#PAYABLE_AFTER_DUE_DATE#');javascript:$s('P378_PAY_ID','#SET_ID#');openModal('PB');
